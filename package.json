@@ -9,11 +9,11 @@
     "openshift"
   ],
   "author": {
-    "name": "OpenShift",
-    "email": "ramr@example.org",
+    "name": "Heng XU",
+    "email": "xu.he@husky.neu.edu",
     "url": "http://www.openshift.com/"
   },
-  "homepage": "http://www.openshift.com/",
+  "homepage": "webdevelopment-xuheng.rhcloud.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/openshift/origin-server"
