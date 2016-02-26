@@ -6,13 +6,56 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script src="js/app.js"></script>
+    <link href="css/style.css" rel="stylesheet">
 
 </head>
 <body>
 <div class="container">
     <h1>Search OMDB API</h1>
-    <input id="movieTitleTxt" class="form-control" placeholder="Avatar"/>
-    <button id="searchMovieBtn" class="btn btn-primary btn-block">SeachMovie</button>
+
+    <div class="row">
+        <!--2 column-->
+
+        <div class="col-xs-6">
+            <h2>Search</h2>
+            <input value="Star Wars" id="movieTitleTxt" class="form-control" placeholder="Avatar"/>
+            <button id="searchMovieBtn" class="btn btn-primary btn-block">Search Movie</button>
+
+
+            <h2>Search Results</h2>
+
+            <!--display the movies -->
+            <table id="searchResults" class="table table-stro[[ed">
+                <thead>
+                <tr>
+                    <th>Poster</th>
+                    <th>Title</th>
+                    <th>IMDB ID</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--fill in the content dynamically-->
+
+                </tbody>
+
+            </table>
+
+        </div>
+        <div class="col-xs-6">
+            <h2 id="detailsTitle">Details</h2>
+            <img id="detailsPoster"/>
+            Director: <span id="director"></span>
+            <h3>Plot</h3>
+            <p id="detailsPlot"></p>
+            <h3>Actors</h3>
+            <ul id="detailsActors">
+
+
+            </ul>
+
+        </div>
+    </div>
+
 </div>
 </body>
 </html>
