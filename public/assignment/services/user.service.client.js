@@ -22,7 +22,9 @@
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
             deleteUserById: deleteUserById,
-            updateUser: updateUser
+            updateUser: updateUser,
+            getCurrentUser: getCurrentUser,
+            setCurrentUser:setCurrentUser
 
         };
         return model;
@@ -58,6 +60,14 @@
             } else {
                 return null;
             }
+        }
+
+        function getCurrentUser(){
+            return $rootScope.currentUser;
+        }
+
+        function setCurrentUser(user){
+            $rootScope.currentUser = user;
         }
     }
 })();
