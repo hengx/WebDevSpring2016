@@ -7,9 +7,10 @@
     function LoginController($scope, UserService, $location, $rootScope) {
         $scope.login = login;
 
-        function login(username, password) {
-            UserService.findUserByCredentials(username, password, function (user) {
-                if (user) {
+        function login() {
+            UserService.findUserByCredentials($scope.username, $scope.password, function (user) {
+
+                if (user != null) {
                     $rootScope.currentUser = user;
                     UserService.setCurrentUser(user);
                     $location.url("/profile");

@@ -13,7 +13,7 @@
         $scope.selectForm = selectForm;
 
 
-        if (currentUser) {
+        if (currentUser != null) {
             FormService.findAllFormsForUser(currentUser._id, function (forms) {
                 $scope.forms = forms;
             });
@@ -26,7 +26,7 @@
                 return;
             }
             var form = {
-                title: formName
+                title: $scope.formName
             };
             FormService.createFormForUser(currentUser._id, form, function (form) {
                 $scope.forms.push(form);
@@ -42,12 +42,12 @@
 
         function updateForm() {
             var form = {
-                title: formName,
+                title: $scope.formName,
                 userId: currentUser._id
-        }
+        };
             if ($scope.selectedForm) {
                 FormService.updateFormById($scope.selectedForm._id, form, function (form) {
-                    FormService.findAllFormsForUser(user._id, function (forms) {
+                    FormService.findAllFormsForUser(currentUser._id, function (forms) {
                         $scope.forms = forms;
                     });
 
@@ -58,8 +58,8 @@
         }
 
         function deleteForm(index) {
-            FormService.deleteFormById($scope.forms[id], function (forms) {
-                FormService.findAllFormsForUser(user._id, function (forms) {
+            FormService.deleteFormById($scope.forms[index]._id, function (form) {
+                FormService.findAllFormsForUser(currentUser._id, function (forms) {
                     $scope.forms = forms;
                 });
             });

@@ -43,7 +43,7 @@
         function deleteFormById(formId, callback){
             for (var f in forms){
                 if (forms[f]._id == formId){
-                    forms.splice(i, 1);
+                    forms.splice(f, 1);
                     break;
                 }
             }

@@ -1,7 +1,7 @@
 <div class="col-sm-3 col-md-2 sidebar" ng-controller="SidebarController">
     <ul class="nav nav-sidebar">
         <li ng-class="{'active': $location.url().indexOf('home') != -1}"><a href="#/home">Home</a></li>
-        <li ng-class="{'active': $location.url().indexOf('profile'} != -1}" ng-show="currentUser"><a href="#/profile">Profile</a>
+        <li ng-class="{'active': $location.url().indexOf('profile') != -1}" ng-show="currentUser"><a href="#/profile">Profile</a>
         </li>
         <li ng-class="{'active': $location.url().indexOf('form') != -1}" ng-show="currentUser"><a href="#/forms">Forms</a></li>
         <li ng-show="currentUser.roles.indexOf('admin') >=0" ng-class="{'active':$location.url()=='/admin'}"><a

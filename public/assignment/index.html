@@ -18,20 +18,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
 
     <!--controllers, services, and other necessary JavaScript files-->
-    <script src="home/home.controller.js"></script>
-    <script src="login/login.controller.js"></script>
-    <script src="users/login.controller.js"></script>
-    <script src="admin/admin.controller.js"></script>
-    <script src="forms/fields.controller.js"></script>
-    <script src="register/register.controller.js"></script>
-    <script src="profile/profile.controller.js"></script>
-    <script src="forms/forms.controller.js"></script>
-    <script src="header/header.controller.js"></script>
-    <script src="sidebar/sidebar.controller.js"></script>
-    <script src="main/main.controller.js"></script>
-
     <script src="app.js"></script>
     <script src="config.js"></script>
+
+    <script src="views/home/home.controller.js"></script>
+    <script src="views/users/login.controller.js"></script>
+    <script src="views/admin/admin.controller.js"></script>
+    <script src="views/forms/fields.controller.js"></script>
+    <script src="views/users/register.controller.js"></script>
+    <script src="views/users/profile.controller.js"></script>
+    <script src="views/forms/forms.controller.js"></script>
+    <script src="views/header/header.controller.js"></script>
+    <script src="views/sidebar/sidebar.controller.js"></script>
+    <script src="views/main/main.controller.js"></script>
+    <script src="services/forms.service.client.js"></script>
+    <script src="services/user.service.client.js"></script>
+
+
 
     <!-- Title -->
     <title>Form Maker</title>
@@ -40,12 +43,11 @@
 
 <body ng-controller="MainController">
 <!--head-->
-<div ng-include="'views/header/header.view.html'"></div>
-
+<div ng-include src="'views/header/header.view.html'"></div>
 <div class="container-fluid">
     <div class="row">
-        <div ng-include="'views/sidebar/sidebar.view.html'"></div>
-        <div ng-view></div>
+        <div ng-include src="'views/sidebar/sidebar.view.html'"></div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view></div>
     </div>
 </div>
 </body>

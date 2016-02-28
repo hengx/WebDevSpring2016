@@ -38,8 +38,10 @@
                 if (currentUsers[u].username == username &&
                     currentUsers[u].password == password){
                     callback(currentUsers[u]);
+                    //return;
                 } else {
                     callback(null);
+                    //return;
                 }
             }
         }
