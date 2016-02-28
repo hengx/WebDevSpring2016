@@ -4,24 +4,24 @@
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($scope, UserService, $location, $rootScope){
-
-        $scope.currentUser = UserService.getCurrentUser();
-        if (!$scope.currentUser){
+    function ProfileController($scope, UserService, $location, $rootScope) {
+        //retrieve the currently logged in user
+        $scope.currentUser = $rootScope.currentUser;
+        if (!$scope.currentUser) {
             $location.url("/home");
         }
-        $scope.updateUser = updateUser;
+        $scope.update = update;
 
-        function updateUser(user){
-            $scope.message = null;
-            $scope.currentUser = UserService.updateUser(user);
+        function update(user) {
+            $scope.currentUser = UserService.updateUser(user._id, user, function () {
+                if (user) {
+                    alert("User updated successfully");
+                } else {
+                    alert("User update failed");
+                }
+            });
 
-            if (user){
-                $scope.message = "User updated successfully";
-                UserService.setCurrentUser($scope.currentUser);
-            } else {
-                $scope.message = "Unable to update the user";
-            }
+
         }
 
     }

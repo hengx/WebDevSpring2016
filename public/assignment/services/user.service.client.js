@@ -5,8 +5,9 @@
         .factory("UserService", UserService);
 
     function UserService($rootScope){
-        var model = {
-            users: [
+        //list of current users
+        var currentUsers = [];
+            currentUsers = [
                 {        "_id":123, "firstName":"Alice",            "lastName":"Wonderland",
                     "username":"alice",  "password":"alice",   "roles": ["student"]                },
                 {        "_id":234, "firstName":"Bob",              "lastName":"Hope",
@@ -17,10 +18,12 @@
                     "username":"dan",    "password":"dan",     "roles": ["faculty", "admin"]},
                 {        "_id":567, "firstName":"Edward",           "lastName":"Norton",
                     "username":"ed",     "password":"ed",      "roles": ["student"]                }
-            ],
-            createUser: createUser,
+            ];
+
+        var model = {
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
+            createUser: createUser,
             deleteUserById: deleteUserById,
             updateUser: updateUser,
             getCurrentUser: getCurrentUser,
@@ -29,37 +32,56 @@
         };
         return model;
 
-        function createUser(user){
-            var user = {
-                username: user.username,
-                password: user.password
-            };
-            model.users.push(user);
-            return user;
-        }
 
-
-        function findUserByCredentials(credentials){
-            for (var u in model.users){
-                if (model.users[u].username === credentials.username &&
-                model.users[u].password === credentials.password){
-                    return model.users[u];
+        function findUserByCredentials(username, password, callback){
+            for (var u in currentUsers){
+                if (currentUsers[u].username == username &&
+                    currentUsers[u].password == password){
+                    callback(currentUsers[u]);
+                } else {
+                    callback(null);
                 }
             }
-            return null;
         }
 
-        function updateUser(currentUser){
-            var user = model.findUserById(currentUser._id);
-            if (user != null){
-                user.firstName = currentUser.firstName;
-                user.lastName = currentUser.lastName;
-                user.username = currentUser.username;
-                user.password = currentUser.password;
-                return user;
-            } else {
-                return null;
+
+        function findAllUsers(callback){
+            callback(currentUsers);
+        }
+
+        /**
+         *
+         * @param user
+         * @param callback
+         */
+        function createUser(user, callback){
+            user._id = (new Date).getTime();
+            currentUsers.push(user);
+            callback(user);
+        }
+
+        function deleteUserById(userId, callback){
+            for (var u in currentUsers){
+                if (currentUsers[u]._id == userId){
+                    currentUsers.splice(u, 1);
+                    break;
+                }
             }
+            callback(currentUsers);
+
+        }
+
+        function updateUser(userId, user, callback){
+            for (var u in currentUsers){
+                if (currentUsers[u]._id == userId){
+                    currentUsers[u].firstName = user.firstName;
+                    currentUsers[u].lastName = user.lastName;
+                    currentUsers[u].username = user.username;
+                    currentUsers[u].password = user.password;
+                   break;
+                }
+            }
+            callback(currentUsers);
         }
 
         function getCurrentUser(){
