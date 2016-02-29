@@ -13,22 +13,23 @@
             $location.url("/home");
         }
 
-
         function update(currentUser) {
-            UserService.updateUser(currentUser._id, currentUser, function (currentUser) {
-                //$rootScope.currentUser = currentUser;
+            //var updatedUser = {};
+            //updatedUser.username = $scope.username;
+            //updatedUser.password = $scope.password;
+            //updatedUser.firstName = $scope.firstName;
+            //updatedUser.lastName = $scope.lastName;
+            //updatedUser.email = $scope.email;
+
+
+            UserService.updateUser(currentUser._id, currentUser, function (updatedUser) {
+                $rootScope.currentUser = updatedUser;
                 alert("User updated successfully");
-                //if (currentUser != null) {
-                //    alert("User updated successfully");
-                //    $rootScope.currentUser = currentUser;
-                //} else {
-                //    alert("User update failed");
-                //}
             });
+
 
         }
 
     }
-
 
 })();

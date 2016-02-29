@@ -12,15 +12,14 @@
 
             if (user == null || !user.username || !user.password || !user.password2 ||
                 user.password != user.password2) {
-                alert("Please enter valid usename and password")
+                alert("Please enter valid information.");
                 return;
 
             }
 
             UserService.findUserByCredentials($scope.user.username, $scope.user.password, function (user) {
                 if (user != null) {
-                    alert("user exits!");
-                    $location.url("/");
+                    alert("User already exits.");
                 }
             });
 

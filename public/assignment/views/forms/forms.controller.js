@@ -4,7 +4,7 @@
         .module("FormBuilderApp")
         .controller("FormController", FormController);
 
-    function FormController(FormService, $scope, $rootScope, $location) {
+    function FormController(FormService, $scope, $rootScope) {
 
         var currentUser = $rootScope.currentUser;
         $scope.addForm = addForm;
@@ -44,7 +44,7 @@
             var form = {
                 title: $scope.formName,
                 userId: currentUser._id
-        };
+            };
             if ($scope.selectedForm) {
                 FormService.updateFormById($scope.selectedForm._id, form, function (form) {
                     FormService.findAllFormsForUser(currentUser._id, function (forms) {
@@ -64,7 +64,6 @@
                 });
             });
         }
-
 
     }
 

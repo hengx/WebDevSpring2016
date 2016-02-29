@@ -12,7 +12,6 @@
 
                 if (user != null) {
                     $rootScope.currentUser = user;
-                    UserService.setCurrentUser(user);
                     $location.url("/profile");
                 }
                 else {

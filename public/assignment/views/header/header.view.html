@@ -19,8 +19,10 @@
                 <li ng-hide="currentUser"
                     ng-class="{'active': $location.url() == '/login'}">
                     <a href="#/login">Login</a></li>
+
                 <li ng-show="currentUser">
                     <a ng-click="logout()">Logout</a></li>
+
                 <li ng-class="{'active': $location.url() == '/profile'}"
                     ng-show="currentUser">
                     <a href="#/profile">{{currentUser.username}}</a></li>

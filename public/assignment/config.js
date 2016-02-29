@@ -1,9 +1,9 @@
-(function(){
+(function () {
     angular
         .module("FormBuilderApp")
         .config(configuration);
 
-    function configuration($routeProvider){
+    function configuration($routeProvider) {
         $routeProvider
             .when("/home", {
                 templateUrl: "views/home/home.view.html"
@@ -19,7 +19,6 @@
             })
             .when("/fields", {
                 templateUrl: "views/forms/fields.view.html"
-                //controller: "SearchController"
 
             })
             .when("/header", {

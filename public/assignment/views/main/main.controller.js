@@ -1,11 +1,11 @@
-(function (){
+(function () {
     'use strict';
     angular
         .module("FormBuilderApp")
         .controller("MainController", MainController);
 
 
-    function MainController($location, $scope){
+    function MainController($location, $scope) {
         $scope.$location = $location;
 
     }
