@@ -58,7 +58,7 @@
         function findAllUsers(callback) {
             callback(currentUsers);
         }
-        
+
         function createUser(user, callback) {
             user._id = (new Date).getTime();
             currentUsers.push(user);
