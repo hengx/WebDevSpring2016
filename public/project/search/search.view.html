@@ -1,0 +1,37 @@
+<h2>Search</h2>
+
+<input  ng-model="name"
+        class="form-control"/>
+<button ng-click="search(name)"
+        class="btn btn-primary btn-block">
+    Search
+</button>
+
+<h3>Search Results</h3>
+<!--<div>{{course}}</div>-->
+<!--<div>{{data}}</div>-->
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Poster</th>
+            <th>Name</th>
+            <th>id</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="course in data.elements">
+            <td><img height="100px" ng-src="{{course.smallIcon}}"/></td>
+            <td>
+                <a href="#/detail/{{course.id}}">
+                    {{course.name}}
+                </a>
+            </td>
+            <td>{{course.id}}</td>
+            <td>{{course.shortDescription}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
