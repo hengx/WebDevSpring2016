@@ -1,17 +1,19 @@
 <h2>Search</h2>
 
-<input  ng-model="name"
+{{currentUser}}
+
+<input  ng-model="mode.course.name"
         class="form-control"/>
-<button ng-click="search(name)"
+<button ng-click="model.search(model.name)"
         class="btn btn-primary btn-block">
     Search
 </button>
 
-<h3>Search Results</h3>
 <!--<div>{{course}}</div>-->
 <!--<div>{{data}}</div>-->
+<div ng-if="model.data">
+    <h3>Search Results</h3>
 
-<div class="table-responsive">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -22,11 +24,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="course in data.elements">
+        <tr ng-repeat="course in model.data.elements">
             <td><img height="100px" ng-src="{{course.smallIcon}}"/></td>
             <td>
                 <a href="#/detail/{{course.id}}">
-                    {{course.name}}
+                    {{course.title}}
                 </a>
             </td>
             <td>{{course.id}}</td>

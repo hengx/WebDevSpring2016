@@ -1,4 +1,4 @@
-
+<h2>Details</h2>
 <!--<h2>{{course.name}}</h2>-->
 
 <!--<img ng-src="{{course.poster}}" height="300px" class="pull-left"/>-->
@@ -13,7 +13,7 @@
     <!--</li>-->
 <!--</ul>-->
 
-<h3>Course Name</h3>
+<h3>{{model.data.title}}</h3>
 <div>
     <!--<img height="100px" ng-src="{{course.elements.smallIcon}}"/>-->
     <p>{{course.elements}}</p>
@@ -33,19 +33,33 @@
         </thead>
         <tbody>
         <tr ng-repeat="course in course.elements">
-            <td><img height="100px" ng-src="{{course.smallIcon}}"/></td>
+            <td><img height="100px" ng-src="{{model.data.smallIcon}}"/></td>
             <td>
 
-                    {{course.name}}
+                    {{model.data.title}}
 
             </td>
-            <td>{{course.id}}</td>
-            <td>{{course.shortDescription}}</td>
+            <td>{{mode.data.id}}</td>
+            <td>{{model.data.shortDescription}}</td>
+            <td><button class="btn btn-primary" ng-click="model.favorite(model.data)">
+                <span class="glyphicon glyphicon-star-empty"></span>
+            </button></td>
         </tr>
         </tbody>
     </table>
 </div>
 
+{{model.userLikes}}
 
+<div ng-if="model.course.userLikes">
+    <h4>Other Users that like this course</h4>
+    <ul>
+        <li ng-repeat="user in model.course.userLikes">
+            <a href="#/profile/{{user.username}}">
+                {{user.username}}
+            </a>
 
+        </li>
+    </ul>
+</div>
 

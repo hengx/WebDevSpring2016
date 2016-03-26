@@ -25,7 +25,17 @@
   },
 
   "dependencies": {
-    "express": "~3.4.4"
+    "express": "~3.4.4",
+    "express-session": "^1.11.3",
+    "mongoose": "^4.2.3",
+    "body-parser": "^1.14.1",
+    "node-uuid": "^1.4.3",
+    "multer": "^1.1.0",
+    "passport": "^0.2.1",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "q": "^1.4.1"
+
   },
   "devDependencies": {},
   "bundleDependencies": [],
