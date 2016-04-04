@@ -1,3 +1,10 @@
-/**
- * Created by hengxu on 2/20/16.
- */
+(function (){
+    'use strict';
+
+    angular.module("FormBuilderApp")
+        .controller("AdminController", AdminController);
+
+    function AdminController($scope){
+
+    }
+})();

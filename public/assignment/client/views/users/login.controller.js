@@ -4,24 +4,34 @@
         .module("FormBuilderApp")
         .controller("LoginController", LoginController);
 
-    function LoginController($scope, UserService, $location, $rootScope) {
-        $scope.login = login;
+    function LoginController(UserService, $location, $rootScope) {
+        var vm = this;
+        vm.login = login;
 
-        function login() {
-            UserService.findUserByCredentials($scope.username, $scope.password, function (user) {
+        function init(){
 
-                if (user != null) {
-                    $rootScope.currentUser = user;
-                    $location.url("/profile");
-                }
-                else {
-                    alert("Invalid username or password.");
-                }
-            });
+        }
+        init();
+
+        function login(username, password) {
+            UserService
+                .findUserByCredential(username, password)
+                .then(function (response) {
+                    if (response.data) {
+                        console.log("response");
+                        console.log(response);
+                        //UserService.setCurrentUser(response.data);
+                        $rootScope.currentUser = response.data;
+                        $location.url("/profile");
+                    }
+                    else {
+                        alert("User does not exist")
+                    }
+
+                });
+
 
         }
 
     }
-
-
 })();

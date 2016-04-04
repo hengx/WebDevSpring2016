@@ -1,3 +1,0 @@
-mode.exports = function(app){
-
-}

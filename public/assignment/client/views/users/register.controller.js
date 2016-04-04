@@ -4,37 +4,55 @@
         .module("FormBuilderApp")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($location, $scope, UserService, $rootScope) {
+    function RegisterController($location, UserService, $rootScope) {
+        var vm = this;
+        vm.register = register;
+        vm.$location = $location;
+        function init(){
 
-        $scope.register = register;
+        }
+        init();
 
         function register(user) {
 
-            if (user == null || !user.username || !user.password || !user.password2 ||
-                user.password != user.password2) {
-                alert("Please enter valid information.");
-                return;
+            console.log("user for register");
+            console.log(user);
+
+            //if (user.username == null || user.password == null || user.password2 == null || user.email == null) {
+            //    alert("Please fill all the information");
+            //    return;
+            //}
+            //if (user.password != user.password2) {
+            //    alert("Passwords do not match");
+            //    return;
+            //}
+
+            //UserService
+            //    .createUser($scope.user)
+            //    .then(function (newU) {
+            //        $rootScope.currentUser = newU;
+            //        $location.url("/profile");
+            //    });
+
+
+                var newUser = {
+                    username: user.username,
+                    password: user.password,
+                    email: user.email
+
+                };
+
+                UserService
+                    .createUser(newUser)
+                    .then(function (response) {
+                        UserService.setCurrentUser(response.data);
+                        //$rootScope.currentUser = response.data;
+                        $location.url("/profile");
+
+                    });
 
             }
 
-            UserService.findUserByCredentials($scope.user.username, $scope.user.password, function (user) {
-                if (user != null) {
-                    alert("User already exits.");
-                }
-            });
-
-            var newUser = {
-                username: $scope.user.username,
-                password: $scope.user.password,
-                email: $scope.user.email
-            };
-
-
-            UserService.createUser(newUser, function (user) {
-                $rootScope.currentUser = user;
-                $location.url("/profile");
-            });
-
-        }
     }
+
 })();
