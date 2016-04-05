@@ -1,40 +1,27 @@
 module.exports = function (app, userModel) {
     'use strict';
-    app.post("/api/assignment/user", register);//createUser
-    app.get("/api/assignment/user?username=:username&password=:password", findUserByCredential);//find user by credential
-    app.get("/api/assignment/user", getAllUsers);
+    app.post("/api/assignment/user", createNewUser);//createUser
+    app.get("/api/assignment/user", getUsers);
     app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/user?username=:username", findUserByUsername);
+    app.get("/api/assignment/user?username=:username&password=:password", findUserByCredentials);//find user by credential
     app.put("/api/assignment/user/:id", updateUser);
     app.delete("/api/assignment/user/:id", removeUserById);
 
-    function register(req, res) {
+
+    function createNewUser(req, res) {
         var user = req.body;
-        userModel
-            .findUserByUsername(user.username)
-            .then(function (user) {
-                if (user) {
-                    res.json(null);
-                } else {
-                    userModel.createUser(user)
-                        .then(function (newU) {
-                            res.json(newU);
-                        });
-
-                }
+        userModel.createUser(user)
+            .then(function (users) {
+                res.json(users);
             });
-
-        //var newUser = userModel.createUser(user);
-        //req.session.currentUser = newUser;
-        //res.json(newUser);
     }
 
 
-
-    function getAllUsers(req, res) {
-        if (req.query.username && req.query.password){
-            findUserByCredential(req, res);
-        } else if (req.query.username){
+    function getUsers(req, res) {
+        if (req.query.username && req.query.password) {
+            findUserByCredentials(req, res);
+        } else if (req.query.username) {
             findUserByUsername(req, res);
         }
         else {
@@ -47,19 +34,19 @@ module.exports = function (app, userModel) {
 
     }
 
-    function findUserByCredential(req, res) {
+    function findUserByCredentials(req, res) {
 
         var username = req.query.username;
         var password = req.query.password;
 
         if (username != null && password != null) {
-            var credential = {
+            var credentials = {
                 username: username,
                 password: password
             };
-            console.log(credential);
+            console.log(credentials);
             userModel
-                .findUserByCredential(credential)
+                .findUserByCredentials(credentials)
                 .then(function (user) {
                     res.json(user);
                 });
@@ -78,13 +65,13 @@ module.exports = function (app, userModel) {
 
     }
 
-    function findUserByUsername(req, res){
+    function findUserByUsername(req, res) {
         var username = req.query.username;
         userModel
             .findUserByUsername(username)
-            .then(function (user){
+            .then(function (user) {
                 res.json(user);
-            })
+            });
     }
 
 
@@ -94,9 +81,8 @@ module.exports = function (app, userModel) {
 
         userModel
             .updateUser(userId, updatedUser)
-            .then(function (user) {
-                res.json(user);
-                //req.session.currentUser = user;
+            .then(function (users) {
+                res.json(users);
             });
 
     }
@@ -111,19 +97,5 @@ module.exports = function (app, userModel) {
 
     }
 
-    //function loggedin(req, res) {
-    //    res.json(req.session.currentUser);
-    //}
-    //
-    //function logout(req, res) {
-    //    req.session.destroy();
-    //    res.send(200);
-    //}
-    //
-    //function profile(req, res){
-    //    var userId = req.params.userId;
-    //    var user = userModel.findUserById(userId);
-    //    res.json(user);
-    //}
 
 };

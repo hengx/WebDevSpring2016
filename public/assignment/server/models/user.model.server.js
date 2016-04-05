@@ -1,61 +1,21 @@
 var mock = require('./user.mock.json');
 var uuid = require("node-uuid");
 
-module.exports = function () {
+module.exports = function (app) {
     'use strict';
 
     var api = {
-        findUserByUsername: findUserByUsername,
-        findUserByCredential: findUserByCredential,
         createUser: createUser,
         findAllUsers: findAllUsers,
         findUserById: findUserById,
         updateUser: updateUser,
-        deleteUser: deleteUser
+        deleteUser: deleteUser,
+        findUserByUsername: findUserByUsername,
+        findUserByCredential: findUserByCredentials
+
     };
 
     return api;
-
-    function findUserByUsername(username) {
-        console.log("username");
-        console.log(username);
-        for (var u in mock) {
-            if (mock[u].username === username) {
-                return mock[u];
-            }
-        }
-        console.log("User Not Found");
-        return null;
-    }
-
-    function findUserByCredential(credential) {
-        console.log("credential");
-        console.log(credential);
-
-        for (var u in mock) {
-            if (mock[u].username === credential.username && mock[u].password === credential.password) {
-               return mock[u];
-
-            }
-        }
-        console.log("User Not Found");
-        return null;
-    }
-
-    function findUserById(userId) {
-        for (var u in mock) {
-            if (mock[u]._id === userId) {
-               return mock[u];
-            }
-        }
-        console.log("User Not Found");
-        return null;
-
-    }
-
-    function findAllUsers() {
-       return mock;
-    }
 
     function createUser(user) {
         var newUser = {
@@ -65,7 +25,23 @@ module.exports = function () {
             email: user.email
         };
         mock.push(newUser);
-        return newUser;
+        return mock;
+    }
+
+
+    function findAllUsers() {
+        return mock;
+    }
+
+    function findUserById(userId) {
+        for (var u in mock) {
+            if (mock[u]._id === userId) {
+                return mock[u];
+            }
+        }
+        console.log("User Not Found");
+        return null;
+
     }
 
     function updateUser(userId, updatedUser) {
@@ -77,11 +53,11 @@ module.exports = function () {
                 mock[u].username = updatedUser.username;
                 mock[u].password = updatedUser.password;
                 mock[u].email = updatedUser.email;
-                return mock[u];
+                break;
             }
 
         }
-        return null;
+        return mock;
 
     }
 
@@ -95,5 +71,37 @@ module.exports = function () {
         }
         return mock;
     }
+
+
+
+    function findUserByUsername(username) {
+        console.log("username");
+        console.log(username);
+        for (var u in mock) {
+            if (mock[u].username === username) {
+                return mock[u];
+            }
+        }
+        console.log("User Not Found");
+        return null;
+    }
+
+    function findUserByCredentials(credentials) {
+        console.log("credentials");
+        console.log(credentials);
+
+        for (var u in mock) {
+            if (mock[u].username === credentials.username && mock[u].password === credentials.password) {
+               return mock[u];
+            }
+        }
+        console.log("User Not Found");
+        return null;
+    }
+
+
+
+
+
 
 };

@@ -11,7 +11,7 @@ module.exports = function (app, formModel) {
     function getFieldsByFormId(req, res) {
         var formId = req.params.formId;
         formModel
-            .findFieldsByFormId(formId)
+            .getFieldsByFormId(formId)
             .then(function(fields){
                 res.json(fields);
             });
