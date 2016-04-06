@@ -7,7 +7,7 @@
     function RegisterController($location, UserService, $rootScope) {
         var vm = this;
         vm.register = register;
-        vm.$location = $location;
+
         function init(){
 
         }
@@ -19,17 +19,17 @@
             console.log(user);
 
                 var newUser = {
-                    username: user.username,
-                    password: user.password,
-                    email: user.email
+                    username: vm.user.username,
+                    password: vm.user.password,
+                    email: vm.user.email
 
                 };
 
                 UserService
                     .createUser(newUser)
                     .then(function (response) {
-                        //UserService.setCurrentUser(response.data);
-                        $rootScope.currentUser = response.data;
+                        UserService.setCurrentUser(response.data);
+                        //$rootScope.currentUser = response.data;
                         $location.url("/profile");
 
                     });

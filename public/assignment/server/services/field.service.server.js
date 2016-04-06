@@ -10,7 +10,7 @@ module.exports = function (app, formModel) {
 
     function getFieldsByFormId(req, res) {
         var formId = req.params.formId;
-        var fields = formModel.getFieldsByFormId(formId);
+        var fields = formModel.findFieldsByFormId(formId);
         res.json(fields);
 
 
@@ -19,7 +19,7 @@ module.exports = function (app, formModel) {
     function getFieldByFieldId(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
-        var field = formModel.findFieldByFieldId(formId, fieldId);
+        var field = formModel.findFieldByFormIdAndFieldId(formId, fieldId);
         res.json(field);
 
 

@@ -15,7 +15,7 @@ module.exports = function () {
 
         createField: createField,
         findFieldsByFormId: findFieldsByFormId,
-        findFieldByFieldId: findFieldByFormIdAndFieldId,
+        findFieldByFormIdAndFieldId: findFieldByFormIdAndFieldId,
         updateField: updateField,
         deleteFieldByFieldId: deleteFieldByFieldId
 

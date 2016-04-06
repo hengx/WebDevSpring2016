@@ -19,23 +19,22 @@
             <tbody>
             <tr>
                 <td>
-                    <input ng-model="model.form.title" type="text" class="form-control" placeholder="Form Title">
+                    <input ng-model="model.title" type="text" class="form-control" placeholder="Form Title">
                 </td>
                 <td>
-                    <button ng-click="model.addForm(model.form)" class="btn btn-primary glyphicon glyphicon-plus"
+                    <button ng-click="model.addForm(model)" class="btn btn-primary glyphicon glyphicon-plus"
                             aria-hidden="true"></button>
-                    <button ng-click="model.updateForm(model.form)" class="btn btn-success glyphicon glyphicon-ok"
+                    <button ng-click="model.updateForm(model)" class="btn btn-success glyphicon glyphicon-ok"
                             aria-hidden="true"></button>
                 </td>
             </tr>
             <tr ng-repeat="form in model.forms">
-                <td><a href="#/form/{{form._id}}/fields"></a>
-                    {{form.title}}
+                <td><a href="#/form/{{form._id}}/fields">{{form.title}}</a>
                 </td>
                 <td>
-                    <button ng-click="model.deleteForm($index)" class="btn btn-default glyphicon glyphicon-remove"
+                    <button ng-click="model.deleteForm($index)" class="btn btn-danger glyphicon glyphicon-remove"
                             aria-hidden="true"></button>
-                    <button ng-click="model.selectForm($index)" class="btn btn-default glyphicon glyphicon-pencil"
+                    <button ng-click="model.selectForm($index)" class="btn btn-info glyphicon glyphicon-pencil"
                             aria-hidden="true"></button>
                 </td>
             </tr>

@@ -14,25 +14,31 @@
         vm.deleteForm = deleteForm;
         vm.selectForm = selectForm;
 
-        function init() {
+        var selectedFormId;
+
+        function init(){
+            selectedFormId = null;
             FormService
                 .findAllFormsForUser(userId)
                 .then(function (response) {
                     vm.forms = response.data;
                 });
-        }
 
+        }
         init();
 
+
         function addForm(form) {
+
             if ($rootScope.currentUser != null){
-                var newForm = {
-                    title: form.title
-                };
+                //var newForm = {
+                //    title: form.title,
+                //    user: userId
+                //};
                 FormService
-                    .createFormForUser(userId, newForm)
+                    .createFormForUser(userId, form)
                     .then(function (response) {
-                        vm.forms = response.data;
+                        vm.forms.push(response.data);
                     }, function (err) {
                         console.log(err);
 
@@ -40,7 +46,7 @@
             }
         }
 
-        var selectedFormId;
+
 
         function selectForm(index) {
             selectedFormId = vm.forms[index]._id;
@@ -55,21 +61,25 @@
                 };
                 FormService
                     .updateFormById(selectedFormId, newForm)
-                    .then(function (response) {
-                        vm.forms = response.data;
+                    .then(function () {
+                        FormService
+                            .findAllFormsForUser(userId)
+                            .then(function(response){
+                                vm.forms = response.data;
+                            })
                     });
             }
-
         }
 
         function deleteForm(index) {
             FormService
                 .deleteFormById(vm.forms[index]._id)
-                .then(function (response) {
-                    console.log(response);
-                    console.log("deleted");
-                    //vm.forms.splice(index, 1);
-                    vm.forms = response.data;
+                .then(function(){
+                    FormService
+                        .findAllFormsForUser(userId)
+                        .then(function(response){
+                            vm.forms = response.data;
+                        })
                 });
 
         }

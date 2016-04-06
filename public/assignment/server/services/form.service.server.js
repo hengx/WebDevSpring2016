@@ -36,7 +36,6 @@ module.exports = function (app, formModel) {
         var forms = formModel.createFormForUser(userId, form);
         res.json(forms);
 
-
     }
 
     function updateForm(req, res) {
