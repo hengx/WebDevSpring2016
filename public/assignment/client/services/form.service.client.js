@@ -32,7 +32,6 @@
         }
 
         function deleteFormById(formId) {
-
             return $http.delete("/api/assignment/form/" + formId);
         }
 

@@ -8,14 +8,13 @@
 
         var api = {
             findUserByUsername: findUserByUsername,
-            findUserByCredential: findUserByCredential,
+            findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
             createUser: createUser,
             deleteUserById: deleteUserById,
             updateUser: updateUser,
             getCurrentUser: getCurrentUser,
             setCurrentUser: setCurrentUser
-            // logout: logout
 
         };
         return api;
@@ -26,7 +25,7 @@
 
         }
 
-        function findUserByCredential(username, password) {
+        function findUserByCredentials(username, password) {
             return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
         }
 

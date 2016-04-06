@@ -30,7 +30,7 @@
                     title: form.title
                 };
                 FormService
-                    .createFormForUser($rootScope.currentUser._id, newForm)
+                    .createFormForUser(userId, newForm)
                     .then(function (response) {
                         vm.forms = response.data;
                     }, function (err) {
@@ -40,7 +40,7 @@
             }
         }
 
-        var selectedFormId = -1;
+        var selectedFormId;
 
         function selectForm(index) {
             selectedFormId = vm.forms[index]._id;
@@ -49,14 +49,17 @@
 
 
         function updateForm(form) {
-            var newForm = {
-                title: form.title
-            };
-            FormService
-                .updateFormById(selectedFormId, newForm)
-                .then(function (response) {
-                    vm.forms = response.data;
-                });
+            if (selectedFormId != null){
+                var newForm = {
+                    title: form.title
+                };
+                FormService
+                    .updateFormById(selectedFormId, newForm)
+                    .then(function (response) {
+                        vm.forms = response.data;
+                    });
+            }
+
         }
 
         function deleteForm(index) {
@@ -64,7 +67,9 @@
                 .deleteFormById(vm.forms[index]._id)
                 .then(function (response) {
                     console.log(response);
-                    vm.forms.splice(index, 1);
+                    console.log("deleted");
+                    //vm.forms.splice(index, 1);
+                    vm.forms = response.data;
                 });
 
         }

@@ -15,7 +15,7 @@
 
         function login(username, password) {
             UserService
-                .findUserByCredential(username, password)
+                .findUserByCredentials(username, password)
                 .then(function (response) {
                     if (response.data) {
                         console.log("response");
@@ -25,12 +25,10 @@
                         $location.url("/profile");
                     }
                     else {
-                        alert("User does not exist")
+                        console.log("User does not exist")
                     }
 
                 });
-
-
         }
 
     }
