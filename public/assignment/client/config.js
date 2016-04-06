@@ -7,13 +7,15 @@
     function configuration($routeProvider) {
         $routeProvider
             .when("/home", {
-                templateUrl: "views/home/home.view.html"
+                templateUrl: "views/home/home.view.html",
+                controller: "HomeController"
             })
             .when("/", {
                 templateUrl: "views/home/home.view.html"
             })
             .when("/admin", {
-                templateUrl: "views/admin/admin.view.html"
+                templateUrl: "views/admin/admin.view.html",
+                controller: "AdminController"
 
             })
             .when("/forms", {

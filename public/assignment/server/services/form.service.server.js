@@ -42,8 +42,19 @@ module.exports = function (app, formModel) {
         var formId = req.params.formId;
         var form = req.body;
         var updatedForm = formModel.updateForm(formId, form);
-        res.json(updatedForm);
+        if (updatedForm){
+            res.json(updatedForm);
+            return;
+        }
+        res.json({message: "Cannot find form"});
 
+    }
+
+    function sortFields(req, res){
+        var formId = req.params.formId;
+        var fields = req.body;
+        var sorted = formModel.sortFields(formId,fields);
+        res.json(sorted);
 
     }
 };

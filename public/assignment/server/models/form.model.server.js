@@ -61,26 +61,37 @@ module.exports = function () {
 
 
     function updateForm(formId, newForm) {
+        var index = -1;
 
         for (var m in mock) {
             if (mock[m]._id === formId) {
-                mock[m].title = newForm.title;
-                mock[m].userId = newForm.userId;
-                mock[m].fields = newForm.fields;
-                return mock[m];
+                index = m;
+               break;
             }
+        }
+        if (index != -1){
+            mock[index] = {
+                _id: formId,
+                title: newForm.title,
+                userId: newForm.userId,
+                fields: newForm.fields
+            };
+            return mock[index]
         }
         return null;
     }
 
 
     function deleteFormByFormId(formId) {
-
+        var index = -1;
         for (var m in mock) {
             if (mock[m]._id === formId) {
-                mock.splice(m, 1);
+                index = m;
                 break;
             }
+        }
+        if (index != -1){
+            mock.splice(index, 1);
         }
         return mock;
     }
@@ -96,8 +107,11 @@ module.exports = function () {
 
 
 
+
+
     function createField(formId, field) {
         field._id = uuid.v4();
+        field.formId = formId;
         var form = findFormByFormId(formId);
 
         if (form != null) {
@@ -112,14 +126,20 @@ module.exports = function () {
 
     function findFieldsByFormId(formId) {
         var form = findFormByFormId(formId);
-        return form.fields;
+        if (form != null){
+            return form.fields;
+        }
+        return null;
+
     }
 
     function findFieldByFormIdAndFieldId(formId, fieldId) {
         var form = findFormByFormId(formId);
-        for (var f in form) {
-            if (form[f]._id === fieldId) {
-                return form[f];
+        if (form != null){
+            for (var f in form) {
+                if (form[f]._id === fieldId) {
+                    return form[f];
+                }
             }
         }
         return null;
@@ -134,9 +154,10 @@ module.exports = function () {
                     break;
                 }
             }
-
+            return form.fields;
         }
-        return form.fields;
+        return null;
+
     }
 
 
@@ -149,8 +170,9 @@ module.exports = function () {
                     break;
                 }
             }
-
+            return form.fields;
         }
-        return form.fields;
+        return null;
+
     }
 };

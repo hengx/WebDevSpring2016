@@ -8,28 +8,44 @@
         var vm = this;
 
 
-        vm.username = $rootScope.currentUser.username;
-        vm.password = $rootScope.currentUser.password;
-        vm.email = $rootScope.currentUser.email;
-        vm.firstname = $rootScope.currentUser.firstname;
-        vm.lastname = $rootScope.currentUser.lastname;
+        //vm.username = $rootScope.currentUser.username;
+        //vm.password = $rootScope.currentUser.password;
+        //vm.email = $rootScope.currentUser.email;
+        //vm.firstname = $rootScope.currentUser.firstname;
+        //vm.lastname = $rootScope.currentUser.lastname;
         vm.updateUser = updateUser;
+        vm.message = null;
+
+        function init(){
+            vm.currentUser = UserService.getCurrentUser();
+        }
+        init();
+
 
         function updateUser(updatedUser){
-            var userId = $rootScope.currentUser._id;
-            var user = {
-                username : updatedUser.username,
-                password: updatedUser.password,
-                firstName: updatedUser.firstName,
-                lastName: updatedUser.lastName,
-                email: updatedUser.email
-            };
+            if (updatedUser == null || updatedUser.username == null ||
+                updatedUser.password == null){
+                vm.message = "Required field cannot be empty";
+                return;
+            }
+            //
+            //var user = {
+            //    username : updatedUser.username,
+            //    password: updatedUser.password,
+            //    firstName: updatedUser.firstName,
+            //    lastName: updatedUser.lastName,
+            //    email: updatedUser.email
+            //};
             UserService
-                .updateUser(userId, user)
+                .updateUser(updatedUser._id, updatedUser)
                 .then(function (response) {
-                    $rootScope.data = response.data;
-                    $location.path("/home");
-                    console.log("Profile updated");
+                    if (response.data){
+                        vm.message = "User profile updated successfully";
+                    }
+                    else {
+                        vm.message = "User profile failed to update";
+                        $location.path("/home");
+                    }
                 });
         }
 

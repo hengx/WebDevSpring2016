@@ -1,7 +1,7 @@
 var mock = require('./user.mock.json');
 var uuid = require("node-uuid");
 
-module.exports = function (app) {
+module.exports = function () {
     'use strict';
 
     var api = {
@@ -18,13 +18,8 @@ module.exports = function (app) {
     return api;
 
     function createUser(user) {
-        var newUser = {
-            _id : uuid.v4(),
-            username: user.username,
-            password: user.password,
-            email: user.email
-        };
-        mock.push(newUser);
+        user._id = uuid.v4();
+        mock.push(user);
         return mock;
     }
 
@@ -63,13 +58,18 @@ module.exports = function (app) {
 
 
     function deleteUser(userId) {
+        var index = -1;
         for (var u in mock) {
             if (mock[u]._id === userId) {
-                mock.splice(u, 1);
+                index = u;
                 break;
             }
         }
+        if (index != -1){
+            mock.splice(index, 1);
+        }
         return mock;
+
     }
 
 
@@ -82,7 +82,6 @@ module.exports = function (app) {
                 return mock[u];
             }
         }
-        console.log("User Not Found");
         return null;
     }
 
@@ -98,10 +97,6 @@ module.exports = function (app) {
         console.log("User Not Found");
         return null;
     }
-
-
-
-
 
 
 };
