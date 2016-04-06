@@ -11,7 +11,7 @@ module.exports = function (app) {
         updateUser: updateUser,
         deleteUser: deleteUser,
         findUserByUsername: findUserByUsername,
-        findUserByCredential: findUserByCredentials
+        findUserByCredentials: findUserByCredentials
 
     };
 

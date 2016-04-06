@@ -10,44 +10,36 @@ module.exports = function (app, formModel) {
 
     function getFieldsByFormId(req, res) {
         var formId = req.params.formId;
-        formModel
-            .getFieldsByFormId(formId)
-            .then(function(fields){
-                res.json(fields);
-            });
+        var fields = formModel.getFieldsByFormId(formId);
+        res.json(fields);
+
 
     }
 
     function getFieldByFieldId(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
-        formModel
-            .findFieldByFieldId(formId, fieldId)
-            .then(function(field){
-                res.json(field);
-            });
+        var field = formModel.findFieldByFieldId(formId, fieldId);
+        res.json(field);
+
 
     }
 
     function deleteFieldByFieldId(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
-        formModel
-            .deleteFieldByFieldId(formId, fieldId)
-            .then(function(fields){
-                res.json(fields);
-            });
+        var fields = formModel.deleteFieldByFieldId(formId, fieldId);
+        res.json(fields);
+
 
     }
 
     function createNewField(req, res) {
         var formId = req.params.formId;
         var field = req.body;
-        formModel
-            .createField(formId, field)
-            .then(function(field){
-                res.json(field);
-            });
+        var field = formModel.createField(formId, field);
+        res.json(field);
+
 
     }
 
@@ -55,11 +47,8 @@ module.exports = function (app, formModel) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
         var newField = req.body;
-        formModel
-            .updateField(formId, fieldId, newField)
-            .then (function(field){
-                res.json(field);
-            });
+        var field = formModel.updateField(formId, fieldId, newField);
+        res.json(field);
 
     }
 
