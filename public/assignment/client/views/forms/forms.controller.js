@@ -4,7 +4,7 @@
         .module("FormBuilderApp")
         .controller("FormController", FormController);
 
-    function FormController(FormService, UserService, $rootScope) {
+    function FormController(FormService, UserService) {
 
         var vm = this;
         //var userId = $rootScope.currentUser._id;
@@ -20,11 +20,8 @@
         function init(){
             vm.currentUser = UserService.getCurrentUser();
             updateAllForms();
-
-
         }
 
-        init();
 
         function updateAllForms(){
             FormService
@@ -35,10 +32,10 @@
 
         }
 
+        init();
 
 
         function addForm(form) {
-
             if (form != null && form.title != null){
                 //var newForm = {
                 //    title: title,
