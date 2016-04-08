@@ -4,7 +4,7 @@
         .module("FormBuilderApp")
         .controller("FieldController", FieldController);
 
-    function FieldController(FieldService, UserService, FormService, $routeParams) {
+    function FieldController(FieldService, UserService, FormService, $routeParams, $rootScope) {
         var vm = this;
         //var formId = $routeParams.formId;
         //var title = $routeParams.title;
@@ -28,19 +28,13 @@
                 .then(function(response){
                     vm.form = response.data;
                 });
-            //FieldService
-            //    .getFieldsForForm(formId)
-            //    .then(function (response) {
-            //        vm.fields = response.data;
-            //    });
 
         }
 
         init();
 
-        var sortableEle;
 
-        sortableEle = $('#sortable').sortable({
+        var sortableEle = $('#sortable').sortable({
             start: vm.dragStart,
             update: vm.dragEnd
         });
@@ -61,7 +55,7 @@
 
         function updateFields(){
             FormService
-                .sortFields(vm.formId, vm.fields)
+                //.sortFields(vm.formId, vm.fields)
                 .then(function(response){
                     vm.fields = response.data;
                 });
@@ -70,7 +64,7 @@
 
         function updateAllFields(){
             FieldService
-                .getFieldsForForm(vm.formId, vm.fields)
+                .getFieldsForForm(vm.formId)
                 .then(function(response){
                     vm.fields = response.data;
                 });
@@ -83,20 +77,24 @@
             var field = {"type" : fieldType};
             switch (fieldType) {
                 case "TEXT":
+                    field.title = "Single Line Text Field";
                     field.label = "New Text Field";
                     field.placeholder = "New Field";
                     field.type = "TEXT";
                     break;
                 case "TEXTAREA":
+                    field.title = "Multi Line Text Field";
                     field.label = "New Text Field";
                     field.placeholder = "New Field";
                     field.type = "TEXTAREA";
                     break;
                 case "DATE":
+                    field.title = "Date Field";
                     field.label = "New Date Field";
                     field.type = "DATE";
                     break;
                 case "OPTIONS":
+                    field.title = "Dropdown Field";
                     field.label = "New Dropdown";
                     field.type = "OPTIONS";
                     field.options = [
@@ -107,6 +105,7 @@
 
                     break;
                 case "CHECKBOXES":
+                    field.title = "Checkbox Field";
                     field.label = "New Checkboxes";
                     field.type = "CHECKBOXES";
                     field.options = [
@@ -116,6 +115,7 @@
                     ];
                     break;
                 case "RADIOS":
+                    field.title = "Radio Field";
                     field.label = "New Radio Buttons";
                     field.type = "RADIOS";
                     field.options = [
@@ -132,8 +132,8 @@
                 .createFieldForForm(vm.formId, field)
                 .then(function (response) {
                    vm.fields = response.data;
-
                 });
+            updateAllFields();
         }
 
         function deleteField(fieldId) {
@@ -150,39 +150,32 @@
         }
 
 
-        function editField(fieldId) {
+        function editField(index, field) {
+            $rootScope.selctedIndex = index;
+            vm.selectedField = {
+                _id : field._id,
+                label: field.label,
+                placeholder: field.placeholder,
+                options: field.options,
+                type: field.type
+            };
 
-            for (var f in vm.fields){
-                if (vm.fields[f]._id === fieldId){
-                    break;
-                }
-            }
-            vm.field = vm.fields[f];
-
-            if (vm.field.options){
-                vm.field.optionList = "";
-                for (var o in vm.field.options){
-                    vm.field.optionList += vm.field.options[o].label.toString()+":" + vm.field.options[o].value.toString()+"\n";
-                }
-            }
-            $("#myModal").modal();
-
-
-            //$scope.selectedFieldIndex = index;
-            //vm.selectedField = {
-            //    _id: field._id,
-            //    label: field.label,
-            //    type: field.type,
-            //    placeholder: field.placeholder,
-            //    options: field.options
-            //};
-            //if (field.type === 'OPTIONS' || field.type === 'CHECKBOXES' || field.type === 'RADIOS') {
-            //    var optionList = [];
-            //    for (var o in field.optionList) {
-            //        optionList.push(field.options[o].label + " : " + field.options[o].value + "\n");
+            //for (var f in vm.fields){
+            //    if (vm.fields[f]._id === fieldId){
+            //        break;
             //    }
-            //    field.optionList = optionList;
             //}
+            //vm.field = vm.fields[f];
+            //
+            //if (vm.field.options){
+            //    vm.field.optionList = "";
+            //    for (var o in vm.field.options){
+            //        vm.field.optionList += vm.field.options[o].label.toString()+":" + vm.field.options[o].value.toString()+"\n";
+            //    }
+            //}
+            //
+            //$("#myModal").modal();
+
         }
 
 

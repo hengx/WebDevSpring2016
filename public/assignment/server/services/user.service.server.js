@@ -11,8 +11,8 @@ module.exports = function (app, userModel) {
 
     function createNewUser(req, res) {
         var user = req.body;
-        var newUser = userModel.createUser(user);
-        res.json(newUser);
+        var users = userModel.createUser(user);
+        res.json(users);
     }
 
 
@@ -68,9 +68,9 @@ module.exports = function (app, userModel) {
         var userId = req.params.id;
         var updatedUser = req.body;
 
-        var users = userModel.updateUser(userId, updatedUser);
+        var user = userModel.updateUser(userId, updatedUser);
 
-        res.json(users);
+        res.json(user);
 
 
     }

@@ -7,8 +7,6 @@
     function FormController(FormService, UserService) {
 
         var vm = this;
-        //var userId = $rootScope.currentUser._id;
-        //vm.title = $rootScope.title;
 
         vm.addForm = addForm;
         vm.updateForm = updateForm;
@@ -36,14 +34,11 @@
 
 
         function addForm(form) {
-            if (form != null && form.title != null){
-                //var newForm = {
-                //    title: title,
-                //    user: userId
-                //};
+            if (form && form.title){
                 FormService
                     .createFormForUser(vm.currentUser._id, form)
-                    .then(function (){
+                    .then(function (response){
+                        vm.forms.push(response.data);
                         vm.form = {};
                         updateAllForms();
                     })
@@ -69,8 +64,7 @@
             //    var newForm = {
             //        title: title
             //    };
-            if (form != null && form._id != null){
-
+            if (form && form._id){
                 FormService
                     .updateFormById(form._id, form)
                     .then(function () {

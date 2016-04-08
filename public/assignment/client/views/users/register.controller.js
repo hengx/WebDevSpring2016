@@ -33,7 +33,7 @@
                 .findUserByUsername(user.username)
                 .then(function (response) {
                     if (response.data) {
-                        vm.message = "User already exist, please login";
+                        vm.message = "User already exists, please login";
                         $location.url("/login");
                     }
                     else {

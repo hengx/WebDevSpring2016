@@ -41,8 +41,8 @@ module.exports = function (app, formModel) {
     function createNewField(req, res) {
         var formId = req.params.formId;
         var field = req.body;
-        var fields = formModel.createField(formId, field);
-        res.json(fields);
+        var field = formModel.createField(formId, field);
+        res.json(field);
 
 
     }
@@ -51,9 +51,9 @@ module.exports = function (app, formModel) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
         var newField = req.body;
-        var fields = formModel.updateField(formId, fieldId, newField);
-        if (fields != null){
-            res.json(fields);
+        var field = formModel.updateField(formId, fieldId, newField);
+        if (field != null){
+            res.json(field);
             return;
         }
         res.json({message: "Field Update Failed"});

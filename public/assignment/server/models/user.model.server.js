@@ -20,7 +20,7 @@ module.exports = function () {
     function createUser(user) {
         user._id = uuid.v4();
         mock.push(user);
-        return mock;
+        return user;
     }
 
 
@@ -48,11 +48,11 @@ module.exports = function () {
                 mock[u].username = updatedUser.username;
                 mock[u].password = updatedUser.password;
                 mock[u].email = updatedUser.email;
-                break;
+                return mock[u];
             }
 
         }
-        return mock;
+        return null;
 
     }
 

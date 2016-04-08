@@ -32,7 +32,7 @@ module.exports = function () {
             fields: form.fields
         };
         mock.push(newForm);
-        return mock;
+        return newForm;
     }
 
     function findAllForms() {
@@ -53,7 +53,6 @@ module.exports = function () {
         for (var m in mock) {
             if (mock[m].userId === userId) {
                 resultForms.push(mock[m]);
-                break;
             }
         }
         return resultForms;
@@ -66,7 +65,6 @@ module.exports = function () {
         for (var m in mock) {
             if (mock[m]._id === formId) {
                 index = m;
-               break;
             }
         }
         if (index != -1){
@@ -111,7 +109,6 @@ module.exports = function () {
 
     function createField(formId, field) {
         field._id = uuid.v4();
-        field.formId = formId;
         var form = findFormByFormId(formId);
 
         if (form != null) {
@@ -119,8 +116,7 @@ module.exports = function () {
                 form.fields = [];
             }
             form.fields.push(field);
-            return form.fields;
-
+            return field;
         }
     }
 
@@ -151,10 +147,9 @@ module.exports = function () {
             for (var f in form.fields) {
                 if (form.fields[f]._id === fieldId) {
                     form.fields[f] = newField;
-                    break;
+                    return form.fields[f];
                 }
             }
-            return form.fields;
         }
         return null;
 
