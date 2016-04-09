@@ -12,7 +12,7 @@
         vm.addField = addField;
         vm.deleteField = deleteField;
         vm.editField = editField;
-        vm.updateFields = updateFields;
+       // vm.updateFields = updateFields;
         vm.saveEditedField = saveEditedField;
 
         //vm.title = title;
@@ -34,32 +34,32 @@
         init();
 
 
-        var sortableEle = $('#sortable').sortable({
-            start: vm.dragStart,
-            update: vm.dragEnd
-        });
+        //var sortableEle = $('#sortable').sortable({
+        //    start: vm.dragStart,
+        //    update: vm.dragEnd
+        //});
+        //
+        //vm.dragStart = function(e, ui) {
+        //    ui.item.data('start', ui.item.index());
+        //};
+        //vm.dragEnd = function(e, ui) {
+        //    var start = ui.item.data('start'),
+        //        end = ui.item.index();
+        //
+        //    vm.fields.splice(end, 0,
+        //        vm.fields.splice(start, 1)[0]);
+        //
+        //    vm.$apply();
+        //};
+        //
 
-        vm.dragStart = function(e, ui) {
-            ui.item.data('start', ui.item.index());
-        };
-        vm.dragEnd = function(e, ui) {
-            var start = ui.item.data('start'),
-                end = ui.item.index();
-
-            vm.fields.splice(end, 0,
-                vm.fields.splice(start, 1)[0]);
-
-            vm.$apply();
-        };
-
-
-        function updateFields(){
-            FormService
-                //.sortFields(vm.formId, vm.fields)
-                .then(function(response){
-                    vm.fields = response.data;
-                });
-        }
+        //function updateFields(){
+        //    FormService
+        //        //.sortFields(vm.formId, vm.fields)
+        //        .then(function(response){
+        //            vm.fields = response.data;
+        //        });
+        //}
 
 
         function updateAllFields(){
@@ -77,13 +77,11 @@
             var field = {"type" : fieldType};
             switch (fieldType) {
                 case "TEXT":
-                    field.title = "Single Line Text Field";
                     field.label = "New Text Field";
                     field.placeholder = "New Field";
                     field.type = "TEXT";
                     break;
                 case "TEXTAREA":
-                    field.title = "Multi Line Text Field";
                     field.label = "New Text Field";
                     field.placeholder = "New Field";
                     field.type = "TEXTAREA";
@@ -94,7 +92,6 @@
                     field.type = "DATE";
                     break;
                 case "OPTIONS":
-                    field.title = "Dropdown Field";
                     field.label = "New Dropdown";
                     field.type = "OPTIONS";
                     field.options = [
@@ -105,7 +102,6 @@
 
                     break;
                 case "CHECKBOXES":
-                    field.title = "Checkbox Field";
                     field.label = "New Checkboxes";
                     field.type = "CHECKBOXES";
                     field.options = [
@@ -115,7 +111,6 @@
                     ];
                     break;
                 case "RADIOS":
-                    field.title = "Radio Field";
                     field.label = "New Radio Buttons";
                     field.type = "RADIOS";
                     field.options = [
@@ -137,14 +132,9 @@
         }
 
         function deleteField(fieldId) {
-            console.log("field ID");
-            console.log(fieldId);
             FieldService
                 .deleteFieldFromForm(vm.formId, fieldId)
                 .then(function (response) {
-                    console.log("delete");
-                    console.log(response.data);
-
                     vm.fields = response.data;
                 });
         }
@@ -159,6 +149,13 @@
                 options: field.options,
                 type: field.type
             };
+
+            var optionList = [];
+            for (var o in vm.selectedField.options){
+                var context = vm.selectedField.options[o].label+ ":" + vm.selectedField.options[o].value;
+                optionList.push(context);
+            }
+            vm.optionList = optionList.join("\n");
 
             //for (var f in vm.fields){
             //    if (vm.fields[f]._id === fieldId){
@@ -179,29 +176,33 @@
         }
 
 
-        function saveEditedField(newField) {
-            if (newField.optionList){
+        function saveEditedField(selectedField) {
+
+            if (selectedField.optionList){
                 var newOptions = [];
-                var optLine = vm.field.optionList.split("\n");
-                for (var o in optLine){
-                    if (optLine[o]){
-                        var items = optLine[o].split(":");
+                var optArr = vm.optionList.split("\n");
+                for (var o in optArr){
+                    if (optArr[o]){
+                        var items = optArr[o].split(":");
                         var option =
                         {
-                            "label": items[0],
-                            "value": items[1]
+                            label: items[0],
+                            value: items[1]
                         };
                         newOptions.push(option);
                     }
 
                 }
-                newField.options = newOptions;
+                selectedField.options = newOptions;
 
             }
             FieldService
-                .updateField(vm.formId, newField._id, newField)
-                .then(function (response){
-                    vm.fields = response.data;
+                .updateField(vm.formId, selectedField._id, selectedField)
+                .then(function (updated){
+                    //vm.fields = response.data;
+                    vm.fields[$rootScope.selectedIndex].label = updated.label;
+                    vm.fields[$rootScope.selectedIndex].placeholder = updated.place;
+                    vm.fields[$rootScope.selectedIndex].options = updated.options;
                 });
 
 

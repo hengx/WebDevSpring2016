@@ -45,7 +45,6 @@ module.exports = function (app, formModel) {
             return;
         }
         res.json({message: "Cannot find form"});
-
     }
 
     function sortFields(req, res){

@@ -142,16 +142,23 @@ module.exports = function () {
     }
 
     function updateField(formId, fieldId, newField) {
-        var form = findFormByFormId(formId);
-        if (form.fields != null) {
-            for (var f in form.fields) {
-                if (form.fields[f]._id === fieldId) {
-                    form.fields[f] = newField;
-                    return form.fields[f];
-                }
-            }
-        }
-        return null;
+        var field = findFieldByFormIdAndFieldId(formId, fieldId);
+        field._id = newField._id;
+        field.label = newField.label;
+        field.type = newField.type;
+        field.placeholder = newField.placeholder;
+        field.options = newField.options;
+        return field;
+        //var form = findFormByFormId(formId);
+        //if (form.fields != null) {
+        //    for (var f in form.fields) {
+        //        if (form.fields[f]._id === fieldId) {
+        //            form.fields[f] = newField;
+        //            return form.fields[f];
+        //        }
+        //    }
+        //}
+        //return null;
 
     }
 
