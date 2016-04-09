@@ -16,35 +16,31 @@
     <div id="sortable" ng-model="model.fields">
         <div class="form-group" ng-repeat="field in model.fields" ng-switch="field.type">
 
-            <div class="col-sm-9 col-xs-8" ng-switch-when="TEXT">
+            <div class="col-sm-6 col-xs-8" ng-switch-when="TEXT">
                 <label>{{field.label}}:
                 <input type="text" class="form-control"
                        placeholder="{{field.placeholder}}">
                 </label>
                 <br>
             </div>
-            <br>
 
-            <div class="col-sm-9 col-xs-8" ng-switch-when="TEXTAREA">
+            <div class="col-sm-6 col-xs-8" ng-switch-when="TEXTAREA">
                 <label>{{field.label}}:
                             <textarea type="text" class="form-control"
                                       placeholder="{{field.placeholder}}"></textarea>
                 </label>
                 <br>
             </div>
-            <br>
 
-            <div class="col-sm-9 col-xs-8 form-control" ng-switch-when="DATE">
+            <div class="col-sm-6 col-xs-8" ng-switch-when="DATE">
                 <label>{{field.label}}:
-                <br>
-                <input type="date" class="form-control date-picker"
-                       placeholder="{{field.placeholder}}" style="text-align: center">
+                <input type="date" class="date-picker"
+                       style="text-align: center">
                 </label>
                 <br>
             </div>
-            <br>
 
-            <div class="col-sm-9 col-xs-8" ng-switch-when="OPTIONS">
+            <div class="col-sm-6 col-xs-8" ng-switch-when="OPTIONS">
                 <label>{{field.label}}:
                 <select class="form-control">
                     <option ng-repeat="option in field.options" value="{{option.value}}">
@@ -54,9 +50,8 @@
                 </label>
                 <br>
             </div>
-            <br>
 
-            <div class="col-sm-9 col-xs-8" ng-switch-when="CHECKBOXES">
+            <div class="col-sm-6 col-xs-8" ng-switch-when="CHECKBOXES">
                 <label>{{field.label}}:
                 <div class="checkbox">
                     <label ng-repeat="option in field.options">
@@ -66,9 +61,8 @@
                 </label>
                 <br>
             </div>
-            <br>
 
-            <div class="col-sm-9 col-xs-8 container-fluid" ng-switch-when="RADIOS">
+            <div class="col-sm-6 col-xs-8 container-fluid" ng-switch-when="RADIOS">
                 <label>{{field.label}}:
                 <div class="radio">
                     <label ng-repeat="option in field.options" class="radio container-fluid">
@@ -78,10 +72,9 @@
                 </label>
                 <br>
             </div>
-            <br>
 
 
-            <div class="col-sm-3 col-xs-4 container-fluid pull-right">
+            <div class="col-sm-6 col-xs-4 container-fluid pull-right">
                         <span class="glyphicon glyphicon-pencil btn btn-info btn-sm"
                               ng-click="model.editField($index, field)"
                               data-toggle="modal"
