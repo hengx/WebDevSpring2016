@@ -1,0 +1,20 @@
+<h2>Profile</h2>
+
+{{vm.profile}}
+
+<div ng-if="model.profile.likesCourses">
+    <h3> Courses I like </h3>
+    <div class="panel panel-default jga-course-panel"
+         ng-repeat ="movie in model.profile.likesMovies">
+        <div class="panel-heading">
+            <a href="#/details/{{course.courseId}}">{{course.title}}</a>
+        </div>
+        <div class="panel-body">
+            <a href="#/details/{{course.courseId}}">
+                <img ng-src="{{course.poster}}" width="100px"/>
+            </a>
+        </div>
+    </div>
+
+
+</div>

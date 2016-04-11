@@ -1,0 +1,65 @@
+<h2>Details</h2>
+<!--<h2>{{course.name}}</h2>-->
+
+<!--<img ng-src="{{course.poster}}" height="300px" class="pull-left"/>-->
+
+
+
+<!--<h3>Instructors</h3>-->
+
+<!--<ul>-->
+    <!--<li ng-repeat="actorName in course.Actors.split(',')">-->
+        <!--{{actorName}}-->
+    <!--</li>-->
+<!--</ul>-->
+
+<h3>{{model.data.title}}</h3>
+<div>
+    <!--<img height="100px" ng-src="{{course.elements.smallIcon}}"/>-->
+    <p>{{course.elements}}</p>
+
+</div>
+<!--some have multiple on their lists, such as /66-->
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Poster</th>
+            <th>Name</th>
+            <th>id</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="course in course.elements">
+            <td><img height="100px" ng-src="{{model.data.smallIcon}}"/></td>
+            <td>
+
+                    {{model.data.title}}
+
+            </td>
+            <td>{{mode.data.id}}</td>
+            <td>{{model.data.shortDescription}}</td>
+            <td><button class="btn btn-primary" ng-click="model.favorite(model.data)">
+                <span class="glyphicon glyphicon-star-empty"></span>
+            </button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+{{model.userLikes}}
+
+<div ng-if="model.course.userLikes">
+    <h4>Other Users that like this course</h4>
+    <ul>
+        <li ng-repeat="user in model.course.userLikes">
+            <a href="#/profile/{{user.username}}">
+                {{user.username}}
+            </a>
+
+        </li>
+    </ul>
+</div>
+

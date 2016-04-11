@@ -26,14 +26,37 @@
         }
 
         function findUserByCredentials(username, password) {
+            //var deferred = $q.defer();
+            //$http
+            //    .get("/api/assignment/user?username=" + username + "&password=" + password)
+            //    .success(function(res){
+            //        deferred.resolve(res);
+            //    });
+            //return deferred.promise;
             return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
         }
 
         function findAllUsers() {
+            //var deferred = $q.defer();
+            //$http
+            //    .get("/api/assignment/user")
+            //    .success(function(res){
+            //        deferred.resolve(res);
+            //    });
+            //return deferred.promise;
+
             return $http.get("/api/assignment/user");
         }
 
         function createUser(user) {
+            //var deferred = $q.defer();
+            //$http
+            //    .post("/api/assignment/user", user)
+            //    .success(function(res){
+            //        deferred.resolve(res);
+            //    });
+            //return deferred.promise;
+
             return $http.post("/api/assignment/user", user);
         }
 

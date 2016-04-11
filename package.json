@@ -34,8 +34,11 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "ng-dialog": "^0.5.5",
-    "q": "^1.4.1"
+    "q": "^1.4.1",
+    "ejs": "^2.3.4",
+    "bcrypt-nodejs": "0.0.3"
   },
+
   "devDependencies": {},
   "bundleDependencies": [],
   "private": true,

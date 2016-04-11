@@ -9,21 +9,31 @@ module.exports = function (app, formModel) {
 
     function findFormsByUserId(req, res) {
         var userId = req.params.userId;
-        var forms = formModel.findFormsByUserId(userId);
-        res.json(forms);
+        formModel
+            .findFormsByUserId(userId)
+            .then(function(forms){
+                res.json(forms);
+            });
+
     }
 
     function findFormByFormId(req, res) {
         var formId = req.params.formId;
-        var form = formModel.findFormByFormId(formId);
-        res.json(form);
-
+        formModel
+            .findFormByFormId(formId)
+            .then(function(form){
+                res.json(form);
+            });
     }
 
     function deleteFormByFormId(req, res) {
         var formId = req.params.formId;
-        var forms = formModel.deleteFormByFormId(formId);
-        res.json(forms);
+        formModel
+            .deleteFormByFormId(formId)
+            .then (function(forms){
+                res.json(forms);
+            });
+
 
     }
 
@@ -31,27 +41,29 @@ module.exports = function (app, formModel) {
     function createFormForUser(req, res) {
         var userId = req.params.userId;
         var form = req.body;
-        var forms = formModel.createFormForUser(userId, form);
-        res.json(forms);
-
+        formModel
+            .createFormForUser(userId, form)
+            .then (function(form){
+                res.json(form);
+            });
     }
 
     function updateForm(req, res) {
         var formId = req.params.formId;
         var form = req.body;
-        var updatedForm = formModel.updateForm(formId, form);
-        if (updatedForm){
-            res.json(updatedForm);
-            return;
+        formModel
+            .updateForm(formId, form)
+            .then (function (updatedForm){
+                res.json(updatedForm);
+            });
         }
-        res.json({message: "Cannot find form"});
-    }
 
-    function sortFields(req, res){
-        var formId = req.params.formId;
-        var fields = req.body;
-        var sorted = formModel.sortFields(formId,fields);
-        res.json(sorted);
 
-    }
+    //function sortFields(req, res){
+    //    var formId = req.params.formId;
+    //    var fields = req.body;
+    //    var sorted = formModel.sortFields(formId,fields);
+    //    res.json(sorted);
+    //
+    //}
 };
