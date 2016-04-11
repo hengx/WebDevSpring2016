@@ -45,6 +45,8 @@ module.exports = function (app, formModel) {
             .createFormForUser(userId, form)
             .then (function(form){
                 res.json(form);
+            }, function(err) {
+                res.status(400).send(err);
             });
     }
 
@@ -55,15 +57,10 @@ module.exports = function (app, formModel) {
             .updateForm(formId, form)
             .then (function (updatedForm){
                 res.json(updatedForm);
+            }, function(err) {
+                res.status(400).send(err);
             });
         }
 
 
-    //function sortFields(req, res){
-    //    var formId = req.params.formId;
-    //    var fields = req.body;
-    //    var sorted = formModel.sortFields(formId,fields);
-    //    res.json(sorted);
-    //
-    //}
 };

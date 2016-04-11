@@ -10,16 +10,24 @@ module.exports = function (app, formModel) {
 
     function getFieldsByFormId(req, res) {
         var formId = req.params.formId;
-        var fields = formModel.findFieldsByFormId(formId);
-        res.json(fields);
+        formModel
+            .findFieldsByFormId(formId)
+            .then (function(fields){
+                res.json(fields);
+            });
+
 
     }
 
     function getFieldByFormIdAndFieldId(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
-        var field = formModel.findFieldByFormIdAndFieldId(formId, fieldId);
-        res.json(field);
+        formModel
+            .findFieldByFormIdAndFieldId(formId, fieldId)
+            .then(function(field){
+                res.json(field);
+            });
+
 
 
     }
@@ -27,23 +35,22 @@ module.exports = function (app, formModel) {
     function deleteFieldByFieldId(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
-        var fields = formModel.deleteFieldByFieldId(formId, fieldId);
-        if (fields != null){
-            res.json(fields);
-            return;
-        }
-        res.json({message: "Field Failed To Delete"});
-
-
+        formModel
+            .deleteFieldByFieldId(formId, fieldId)
+            .then (function (fields){
+                res.json(fields);
+            });
 
     }
 
     function createNewField(req, res) {
         var formId = req.params.formId;
         var field = req.body;
-        var field = formModel.createField(formId, field);
-        res.json(field);
-
+        formModel
+            .createField(formId, field)
+            .then (function(newField){
+                res.json(newField);
+            });
 
     }
 
@@ -51,13 +58,11 @@ module.exports = function (app, formModel) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
         var newField = req.body;
-        var field = formModel.updateField(formId, fieldId, newField);
-        if (field != null){
-            res.json(field);
-            return;
-        }
-        res.json({message: "Field Update Failed"});
-
+        formModel
+            .updateField(formId, fieldId, newField)
+            .then (function(field){
+                res.json(field);
+            });
 
     }
 

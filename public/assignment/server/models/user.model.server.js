@@ -5,7 +5,6 @@ module.exports = function (db, mongoose) {
     'use strict';
 
     var userSchema = require("./user.schema.server.js")(mongoose);
-
     var userModel = mongoose.model('userModel', userSchema);
 
     var api = {
