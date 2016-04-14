@@ -31,6 +31,7 @@ console.log(connectionString);
 // connect to the database
 var db = mongoose.connect(connectionString);
 require('./public/assignment/server/app.js')(app, mongoose, db);
+//require("./public/project/server/app.js")(app, mongoose, db);
 
 //require("./public/assignment/server/app.js")(app);
 app.listen(port, ipaddress);
