@@ -15,12 +15,11 @@ var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 // create a default connection string
-var connectionString = 'mongodb://127.0.0.1:27017/cs5610db';
+var connectionString = 'mongodb://127.0.0.1:27017/cs5610spring2016';
 
-// use remote connection string
-// if running in remote server
-if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
-    connectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+    connection_string =
+        process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
         process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
         process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
         process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
