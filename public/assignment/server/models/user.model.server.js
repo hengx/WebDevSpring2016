@@ -22,6 +22,7 @@ module.exports = function (db, mongoose) {
 
     function createUser(user) {
         var deferred = q.defer();
+        delete user._id;
         userModel
             .create(user, function (err, newUser) {
                 if (err) {
@@ -31,9 +32,6 @@ module.exports = function (db, mongoose) {
                 }
             });
         return deferred.promise;
-        //user._id = uuid.v4();
-        //mock.push(user);
-        //return user;
     }
 
 
@@ -62,13 +60,6 @@ module.exports = function (db, mongoose) {
                 }
             });
         return deferred.promise;
-        //for (var u in mock) {
-        //    if (mock[u]._id === userId) {
-        //        return mock[u];
-        //    }
-        //}
-        //console.log("User Not Found");
-        //return null;
 
     }
 
@@ -93,18 +84,6 @@ module.exports = function (db, mongoose) {
 
         return deferred.promise;
 
-        //for (var u in mock) {
-        //    if (mock[u]._id === userId) {
-        //        mock[u].firstName = updatedUser.firstName;
-        //        mock[u].lastName = updatedUser.lastName;
-        //        mock[u].username = updatedUser.username;
-        //        mock[u].password = updatedUser.password;
-        //        mock[u].email = updatedUser.email;
-        //        return mock[u];
-        //    }
-        //
-        //}
-        //return null;
 
     }
 
@@ -120,17 +99,6 @@ module.exports = function (db, mongoose) {
                 }
             });
         return deferred.promise;
-        //var index = -1;
-        //for (var u in mock) {
-        //    if (mock[u]._id === userId) {
-        //        index = u;
-        //        break;
-        //    }
-        //}
-        //if (index != -1) {
-        //    mock.splice(index, 1);
-        //}
-        //return mock;
 
     }
 
@@ -138,7 +106,7 @@ module.exports = function (db, mongoose) {
     function findUserByUsername(username) {
         var deferred = q.defer();
         userModel
-            .find({username: username},
+            .findOne({username: username},
                 function(err, user){
                     if (err){
                         deferred.reject(err);
