@@ -28,14 +28,7 @@
                 vm.message = "Required field cannot be empty";
                 return;
             }
-            //
-            //var user = {
-            //    username : updatedUser.username,
-            //    password: updatedUser.password,
-            //    firstName: updatedUser.firstName,
-            //    lastName: updatedUser.lastName,
-            //    email: updatedUser.email
-            //};
+
             UserService
                 .updateUser(updatedUser._id, updatedUser)
                 .then(function (response) {

@@ -14,7 +14,10 @@
             deleteUserById: deleteUserById,
             updateUser: updateUser,
             getCurrentUser: getCurrentUser,
-            setCurrentUser: setCurrentUser
+            setCurrentUser: setCurrentUser,
+            login: login,
+            register: register,
+            logout: logout
 
         };
         return api;
@@ -26,46 +29,23 @@
         }
 
         function findUserByCredentials(username, password) {
-            //var deferred = $q.defer();
-            //$http
-            //    .get("/api/assignment/user?username=" + username + "&password=" + password)
-            //    .success(function(res){
-            //        deferred.resolve(res);
-            //    });
-            //return deferred.promise;
             return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
         }
 
         function findAllUsers() {
-            //var deferred = $q.defer();
-            //$http
-            //    .get("/api/assignment/user")
-            //    .success(function(res){
-            //        deferred.resolve(res);
-            //    });
-            //return deferred.promise;
-
-            return $http.get("/api/assignment/user");
+            return $http.get("/api/assignment/admin/user");
         }
 
         function createUser(user) {
-            //var deferred = $q.defer();
-            //$http
-            //    .post("/api/assignment/user", user)
-            //    .success(function(res){
-            //        deferred.resolve(res);
-            //    });
-            //return deferred.promise;
-
-            return $http.post("/api/assignment/user", user);
+            return $http.post("/api/assignment/admin/user", user);
         }
 
         function deleteUserById(userId) {
-            return $http.delete("/api/assignment/user/" + userId);
+            return $http.delete("/api/assignment/admin/user/" + userId);
         }
 
         function updateUser(userId, user) {
-            return $http.put("/api/assignment/user/" + userId, user);
+            return $http.put("/api/assignment/admin/user/" + userId, user);
         }
 
         function setCurrentUser(user) {
@@ -74,6 +54,17 @@
 
         function getCurrentUser() {
             return $rootScope.currentUser;
+        }
+        function register(user){
+            return $http.post('/api/assignment/register', user);
+        }
+
+        function login(user){
+            return $http.post('/api/assignment/login', user);
+        }
+
+        function logout(){
+            return $http.post('/api/assignment/logout');
         }
 
 

@@ -64,7 +64,10 @@ module.exports = function (db, mongoose) {
     }
 
     function updateUser(userId, user) {
+        console.log("UID");
+        console.log(userId);
         var deferred = q.defer();
+        delete user._id;
         userModel.update(
             {_id: userId},
             {$set: user},
@@ -72,10 +75,13 @@ module.exports = function (db, mongoose) {
                 if (err) {
                     deferred.reject(err);
                 } else {
+                    console.log("updatedU");
+
                     userModel.findById(userId, function (err, updatedU) {
                         if (err) {
                             deferred.reject(err);
                         } else {
+                            console.log(updatedU);
                             deferred.resolve(updatedU);
                         }
                     });
@@ -116,18 +122,12 @@ module.exports = function (db, mongoose) {
                 });
         return deferred.promise;
 
-        //for (var u in mock) {
-        //    if (mock[u].username === username) {
-        //        return mock[u];
-        //    }
-        //}
-        //return null;
     }
 
     function findUserByCredentials(credentials) {
         var deferred = q.defer();
         userModel
-            .find({username : credentials.username, password: credentials.password},
+            .findOne({username : credentials.username},
             function (err, user){
                 if (err){
                     deferred.reject(err);
@@ -137,13 +137,6 @@ module.exports = function (db, mongoose) {
             });
         return deferred.promise;
 
-        //for (var u in mock) {
-        //    if (mock[u].username === credentials.username && mock[u].password === credentials.password) {
-        //        return mock[u];
-        //    }
-        //}
-        //console.log("User Not Found");
-        //return null;
     }
 
 

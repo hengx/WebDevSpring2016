@@ -34,34 +34,6 @@
         init();
 
 
-        //var sortableEle = $('#sortable').sortable({
-        //    start: vm.dragStart,
-        //    update: vm.dragEnd
-        //});
-        //
-        //vm.dragStart = function(e, ui) {
-        //    ui.item.data('start', ui.item.index());
-        //};
-        //vm.dragEnd = function(e, ui) {
-        //    var start = ui.item.data('start'),
-        //        end = ui.item.index();
-        //
-        //    vm.fields.splice(end, 0,
-        //        vm.fields.splice(start, 1)[0]);
-        //
-        //    vm.$apply();
-        //};
-        //
-
-        //function updateFields(){
-        //    FormService
-        //        //.sortFields(vm.formId, vm.fields)
-        //        .then(function(response){
-        //            vm.fields = response.data;
-        //        });
-        //}
-
-
         function updateAllFields(){
             FieldService
                 .getFieldsForForm(vm.formId)

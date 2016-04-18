@@ -19,12 +19,12 @@
                 vm.messsage = "Please fill in the required fields";
                 return;
             }
+
             UserService
-                .findUserByCredentials(username, password)
+                //.findUserByCredentials(username, password)
+                .login({username:username, password:password})
                 .then(function (response) {
                     if (response.data) {
-                        console.log("response");
-                        console.log(response);
                         UserService.setCurrentUser(response.data);
                         //$rootScope.currentUser = response.data;
                         $location.url("/profile");

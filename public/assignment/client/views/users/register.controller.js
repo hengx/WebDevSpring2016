@@ -29,33 +29,26 @@
                 vm.message = "Please provide a valid email"
             }
 
-            UserService
-                .findUserByUsername(user.username)
-                .then(function (response) {
-                    if (response.data) {
-                        vm.message = "User already exists, please login";
-                        $location.url("/login");
-                    }
-                    else {
-                        //var newUser = {
-                        //    username: vm.user.username,
-                        //    password: vm.user.password,
-                        //    email: vm.user.email
-                        //
-                        //};
-
+            //UserService
+            //    .findUserByUsername(user.username)
+            //    .then(function (response) {
+            //        if (response.data) {
+            //            vm.message = "User already exists, please login";
+            //            $location.url("/login");
+            //        }
+            //        else {
                         UserService
-                            .createUser(user)
+                            .register(user)
                             .then(function (response) {
                                 UserService.setCurrentUser(response.data);
                                 //$rootScope.currentUser = response.data;
                                 $location.url("/profile");
 
                             });
-
-
-                    }
-                })
+                //
+                //
+                //    }
+                //})
 
 
         }
