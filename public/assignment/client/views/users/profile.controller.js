@@ -18,6 +18,7 @@
 
         function init(){
             vm.currentUser = UserService.getCurrentUser();
+            vm.currentUser.password = '';
         }
         init();
 

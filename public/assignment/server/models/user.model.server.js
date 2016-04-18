@@ -1,5 +1,7 @@
 var q = require("q");
-var uuid = require("node-uuid");
+//var uuid = require("node-uuid");
+var bcrypt = require('bcrypt-nodejs');
+
 
 module.exports = function (db, mongoose) {
     'use strict';
@@ -64,8 +66,8 @@ module.exports = function (db, mongoose) {
     }
 
     function updateUser(userId, user) {
-        console.log("UID");
-        console.log(userId);
+        //console.log("UID");
+        //console.log(userId);
         var deferred = q.defer();
         delete user._id;
         userModel.update(
@@ -132,7 +134,12 @@ module.exports = function (db, mongoose) {
                 if (err){
                     deferred.reject(err);
                 } else {
-                    deferred.resolve(user);
+                    if (bcrypt.compareSync(credentials.password, user.password)){
+                        deferred.resolve(user);
+                    } else {
+                        deferred.resolve(false);
+                    }
+
                 }
             });
         return deferred.promise;
