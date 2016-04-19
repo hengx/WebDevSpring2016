@@ -7,17 +7,16 @@
     function AdminController(UserService) {
 
         var vm = this;
+        vm.add = add;
+        vm.select = select;
+        vm.remove = remove;
+        vm.update = update;
+
+        vm.sortType = 'username';
+        vm.sortReverse = false;
 
 
         function init() {
-
-            vm.add = add;
-            vm.select = select;
-            vm.remove = remove;
-            vm.update = update;
-
-            vm.sortType = 'username';
-            vm.sortReverse = false;
 
             UserService
                 .findAllUsers()
@@ -34,7 +33,7 @@
                 .deleteUserById(user._id)
                 .then(function (response) {
                     vm.users.splice(index, 1);
-                });
+                }, handleError);
             //.then(handleSuccess, handleError);
         }
 
@@ -52,7 +51,7 @@
                             vm.users[u] = user;
                         }
                     }
-                });
+                }, handleError);
             //.then(handleSuccess, handleError);
 
         }
@@ -105,6 +104,8 @@
                 //.then(handleSuccess, handleError);
                 .then(function (response) {
                     vm.users.push(response.data);
+
+
                 });
             //.then(function(users){
             //    $scope.users = users;

@@ -36,6 +36,9 @@ module.exports = function (app, userModel) {
 
     function createNewUser(req, res) {
         var user = req.body;
+        console.log("server service");
+        console.log(user);
+        
         user.password = bcrypt.hashSync(user.password);
         userModel
             .createUser(user)

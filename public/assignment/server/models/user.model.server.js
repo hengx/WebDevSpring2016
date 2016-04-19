@@ -23,6 +23,8 @@ module.exports = function (db, mongoose) {
     return api;
 
     function createUser(user) {
+        console.log("server model : create new user");
+        console.log(user);
         var deferred = q.defer();
         delete user._id;
         userModel
@@ -30,6 +32,8 @@ module.exports = function (db, mongoose) {
                 if (err) {
                     deferred.reject(err);
                 } else {
+                    console.log("server side newUser");
+                    console.log(newUser);
                     deferred.resolve(newUser);
                 }
             });
