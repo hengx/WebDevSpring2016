@@ -4,16 +4,21 @@
     angular.module("FormBuilderApp")
         .controller("AdminController", AdminController);
 
-    function AdminController(UserService, $scope) {
-        $scope.add = add;
-        $scope.select = select;
-        $scope.remove = remove;
-        $scope.update = update;
+    function AdminController(UserService) {
 
-        $scope.sortType = 'username';
-        $scope.sortReverse = false;
+        var vm = this;
+
 
         function init() {
+
+            vm.add = add;
+            vm.select = select;
+            vm.remove = remove;
+            vm.update = update;
+
+            vm.sortType = 'username';
+            vm.sortReverse = false;
+
             UserService
                 .findAllUsers()
                 //.then(function(users){
@@ -24,32 +29,45 @@
 
         init();
 
-        function remove(user) {
+        function remove(user, index) {
             UserService
                 .deleteUserById(user._id)
-                //.then (function(users){
-                //    $scope.users = users;
-                //});
-                .then(handleSuccess, handleError);
+                .then(function (response) {
+                    vm.users.splice(index, 1);
+                });
+            //.then(handleSuccess, handleError);
         }
 
-        function update(selectedUser) {
+        function update(user) {
+
+            if (user.roles) {
+                user.roles = user.roles.split(',');
+            }
             UserService
-                .updateUser(selectedUser._id, selectedUser)
-                .then(handleSuccess, handleError);
+                .updateUser(user._id, user)
+                .then(function (response) {
+                    for (var u in vm.users) {
+                        if (vm.users[u]._id === user._id) {
+                            user.roles = user.roles.toString();
+                            vm.users[u] = user;
+                        }
+                    }
+                });
+            //.then(handleSuccess, handleError);
 
         }
-            //UserService
-            //    .updateUser(selectedUser._id, selectedUser)
-            //    //.then(function(users){
-                //    $scope.users = users;
-                //    $scope.selectedUser.username = "";
-                //    $scope.selectedUser.password = "";
-                //    $scope.selectedUser.firstName = "";
-                //    $scope.selectedUser.lastName = "";
-                //    $scope.selectedUser.roles = "";
-                //    delete $scope.selectedUser._id;
-                //});
+
+        //UserService
+        //    .updateUser(selectedUser._id, selectedUser)
+        //    //.then(function(users){
+        //    $scope.users = users;
+        //    $scope.selectedUser.username = "";
+        //    $scope.selectedUser.password = "";
+        //    $scope.selectedUser.firstName = "";
+        //    $scope.selectedUser.lastName = "";
+        //    $scope.selectedUser.roles = "";
+        //    delete $scope.selectedUser._id;
+        //});
 
 
         //if (user !== undefined){
@@ -64,9 +82,9 @@
         //
         //}
 
-        function add(selectedUser) {
+        function add(user) {
             console.log("add user");
-            console.log(selectedUser);
+            console.log(user);
             //UserService
             //    .createUser(selectedUser)
             //    .then(function(user){
@@ -79,12 +97,18 @@
             //            return string.trim();
             //        });
             //    }
-                UserService
-                    .createUser(selectedUser)
-                    .then(handleSuccess, handleError);
-                    //.then(function(users){
-                    //    $scope.users = users;
-                    //})
+            if (user.roles) {
+                user.roles = user.roles.split(',');
+            }
+            UserService
+                .createUser(user)
+                //.then(handleSuccess, handleError);
+                .then(function (response) {
+                    vm.users.push(response.data);
+                });
+            //.then(function(users){
+            //    $scope.users = users;
+            //})
             //}
         }
 
@@ -98,9 +122,10 @@
             //        $scope.selectedUser.password = '';
             //    });
 
+            user.roles = user.roles.toString();
 
-            $scope.selectedUser = angular.copy(user);
-            $scope.selectedUser.password = '';
+            vm.user = angular.copy(user);
+            vm.user.password = '';
         }
 
         //function handleResponse(response) {
@@ -118,11 +143,14 @@
         //
         function handleSuccess(response) {
             //init();
-           $scope.users = response.data;
+            for (var i in response.data) {
+                response.data[i].roles = response.data[i].roles.toString();
+            }
+            vm.users = response.data;
         }
 
         function handleError(error) {
-            $scope.error = error;
+            vm.error = error;
         }
 
     }
