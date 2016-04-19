@@ -88,7 +88,7 @@
                 response.data[i].roles = response.data[i].roles.toString();
             }
         $scope.users = response.data;
-            
+
         }
 
         function handleError(error) {
