@@ -36,9 +36,8 @@ module.exports = function (app, userModel) {
 
     function createNewUser(req, res) {
         var user = req.body;
-        console.log("server service");
+        console.log('add new user');
         console.log(user);
-        
         user.password = bcrypt.hashSync(user.password);
         userModel
             .createUser(user)
@@ -52,12 +51,14 @@ module.exports = function (app, userModel) {
 
 
     function getUsers(req, res) {
+        console.log('get users')
         if (req.query.username && req.query.password) {
             findUserByCredentials(req, res);
         } else if (req.query.username) {
             findUserByUsername(req, res);
         }
         else {
+            console.log('get All users')
             userModel
                 .findAllUsers()
                 .then(function (users) {
@@ -227,7 +228,7 @@ module.exports = function (app, userModel) {
 
 
     function isAdmin(req, res, next) {
-        if (req.isAuthenticated()  && req.user.roles.indexOf("admin") > 0) {
+        if (req.isAuthenticated()  && req.user.roles.indexOf("admin") >= 0) {
             next();
         } else {
             res.status(403);

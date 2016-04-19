@@ -4,7 +4,7 @@
     angular.module("FormBuilderApp")
         .controller("AdminController", AdminController);
 
-    function AdminController(UserService) {
+    function AdminController(UserService, $scope) {
 
         var vm = this;
         vm.add = add;
@@ -20,9 +20,6 @@
 
             UserService
                 .findAllUsers()
-                //.then(function(users){
-                //    $scope.users = users;
-                //});
                 .then(handleSuccess, handleError);
         }
 
@@ -103,10 +100,11 @@
                 .createUser(user)
                 //.then(handleSuccess, handleError);
                 .then(function (response) {
-                    vm.users.push(response.data);
-
-
+                    if (response.data !== undefined) {
+                        vm.users.push(response.data);
+                    }
                 });
+            user.roles = user.roles.join();
             //.then(function(users){
             //    $scope.users = users;
             //})
@@ -144,10 +142,11 @@
         //
         function handleSuccess(response) {
             //init();
+            console.log(response.data);
             for (var i in response.data) {
                 response.data[i].roles = response.data[i].roles.toString();
             }
-            vm.users = response.data;
+            $scope.users = response.data;
         }
 
         function handleError(error) {

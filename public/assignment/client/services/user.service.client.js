@@ -42,6 +42,8 @@
         }
 
         function createUser(user) {
+            console.log("create");
+            console.log(user);
             return $http.post("/api/assignment/admin/user", user);
         }
 
