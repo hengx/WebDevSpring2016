@@ -3,11 +3,12 @@ module.exports = function(mongoose){
     var CourseSchema = mongoose.Schema({
         courseId: String,
         name: String,
-        photoUrl: String,
+        smallIcon: String,
+        shortDescription: String,
         // ids of users that like this course
-        likes: [String],
-        //list of users that likes this course
-        userLikes: [
+        userIdsLikedCourse: [String],
+        //list of users that liked this course
+        userListsLikedCourse: [
             {username: String}
         ]
         // store movie documents in this collection

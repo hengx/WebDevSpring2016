@@ -11,7 +11,7 @@ module.exports = function(db, mongoose){
         findCourseByCourseId: findCourseByCourseId,
         findCoursesByCourseIds: findCoursesByCourseIds,
         createCourse: createCourse,
-        userLikesCourse: userLikesCourse
+        setUserLikesCourse: setUserLikesCourse
     };
 
     return api;
@@ -74,11 +74,13 @@ module.exports = function(db, mongoose){
             //_id: "ID_" + (new Date()).getTime(),
             courseId: course.courseId,
             name: course.name,
-            photoUrl: course.photoUrl
+            smallIcon: course.smallIcon,
+            shortDescription: course.shortDescription
 
         });
         var deferred = q.defer();
 
+        // save course to database
         course.save(function(err, doc){
             if (err){
                 // reject promise if error
@@ -95,7 +97,7 @@ module.exports = function(db, mongoose){
     }
 
 
-    function userLikesCourse(userId, course){
+    function setUserLikesCourse(userId, course){
         var deferred = q.defer();
         // find the course by course ID
         Course.findOne({courseId: course.courseId},
@@ -106,8 +108,8 @@ module.exports = function(db, mongoose){
             }
             // if there's a course
             if (doc){
-                // add user to likes
-                doc.likes.push(userId);
+                // add user to userIdsLikedCourse
+                doc.userIdsLikedCourse.push(userId);
                 // save changes
                 doc.save(function(err, doc){
                     if (err){
@@ -122,12 +124,12 @@ module.exports = function(db, mongoose){
                 course = new Course({
                     courseId: course.courseId,
                     name: course.name,
-                    photoUrl: course.photoUrl,
-                    likes: []
-
+                    smallIcon: course.smallIcon,
+                    shortDescription: course.shortDescription,
+                    userIdsLikedCourse: []
                 });
-                // add user to likes
-                course.likes.push(userId);
+                // add user to userIdsLikedCourse
+                course.userIdsLikedCourse.push(userId);
                 course.save(function(err, doc){
                     if (err){
                         deferred.reject(err);

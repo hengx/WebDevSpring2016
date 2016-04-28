@@ -18,12 +18,8 @@
         function login(user){
             console.log("login client");
             console.log(user);
-            if (!user){
-                return;
-            }
-            if (user.username == null || user.password == null){
+            if (!user || user.username == null || user.password == null){
                 vm.messsage = "Please fill in the required fields";
-                return;
             }
 
             UserService

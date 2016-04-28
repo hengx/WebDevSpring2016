@@ -14,6 +14,10 @@
                 <a href="#/profile">Profile</a>
             </li>
             <li ng-class="{'active': model.$location.url() == '/search'}"><a href="#/search">Search</a></li>
+            <li ng-class="{'active': model.$location.url().indexOf('/favorite') >= 0}"
+                ng-show="currentUser && currentUser != 0">
+                <a href="#/favorite">Favorite</a>
+            </li>
             <li ng-class="{'active': model.$location.url().indexOf('/details')>=0}"
                 ng-show="model.$location.url().indexOf('/details')>=0"><a>Details</a></li>
         </ul>

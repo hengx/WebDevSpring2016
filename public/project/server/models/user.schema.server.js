@@ -14,9 +14,9 @@ module.exports = function(mongoose) {
             default: ['student']
         },
         // course ids of courses this user likes
-        likes: [String],
-        //courses this user likes
-        likesCourses: [CourseSchema]
+        courseIdsLikedByUser: [String],
+        //courses this user coursesIdLiked
+        coursesLikedByUser: [CourseSchema]
         // collection property sets
         // collection name to 'user'
     }, {collection: 'project.user'});

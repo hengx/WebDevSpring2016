@@ -31,8 +31,8 @@
 
         function favorite(course){
             if (currentUser){
-                vm.course.likes = [];
-                vm.course.likes.push(currentUser._id);
+                vm.course.coursesIdLiked = [];
+                vm.course.coursesIdLiked.push(currentUser._id);
                 CourseService
                     .userLikesCourse(currentUser._id, course);
             } else {

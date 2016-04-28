@@ -11,12 +11,14 @@
             setCurrentUser: setCurrentUser,
             register: register,
             logout: logout,
-            getProfile: getProfile,
+            getFavorites: getFavorites,
+            adminFindUserById: adminFindUserById,
             findAllUsers: findAllUsers,
             deleteUserById: deleteUserById,
             updateUser: updateUser,
+            adminUpdateUser: adminUpdateUser,
             createUser: createUser,
-            findUserByCredentials:findUserByCredentials,
+            //findUserByCredentials:findUserByCredentials,
             findUserByUsername:findUserByUsername
         };
         return api;
@@ -44,12 +46,15 @@
 
         function logout() {
             return $http.post("/api/project/logout");
-
         }
 
-        function getProfile() {
+        function getFavorites() {
             //console.log($rootScope.currentUser._id);
-            return $http.get("/api/project/profile/" + $rootScope.currentUser._id);
+            return $http.get("/api/project/favorite/" + $rootScope.currentUser._id);
+        }
+
+        function adminFindUserById (userId) {
+            return $http.get("/api/project/admin/user/" + userId);
         }
 
         function findAllUsers() {
@@ -61,6 +66,10 @@
         }
 
         function updateUser(userId, user) {
+            return $http.put("/api/project/user/" + userId, user);
+        }
+
+        function adminUpdateUser(userId, user){
             return $http.put("/api/project/admin/user/" + userId, user);
         }
 
@@ -70,9 +79,9 @@
             return $http.post("/api/project/admin/user", user);
         }
 
-        function findUserByCredentials(username, password) {
-            return $http.get('/api/project/user?username=' + username + '&password=' + password);
-        }
+        //function findUserByCredentials(username, password) {
+        //    return $http.get('/api/project/user?username=' + username + '&password=' + password);
+        //}
         function findUserByUsername(username) {
             return $http.get('/api/project/user?username=' + username);
         }

@@ -1,0 +1,23 @@
+<h2>Favorite</h2>
+
+{{model.user}}
+
+<div ng-if="model.user.coursesLikedByUser.length">
+
+    <h3>Courses I Like</h3>
+
+    <div class="panel panel-default jga-movie-panel"
+         ng-repeat="course in model.user.coursesLikedByUser">
+        <div class="panel-heading">
+            <a href="#/details/{{course.courseId}}">
+                {{course.name}}
+            </a>
+        </div>
+        <div class="panel-body">
+            <a href="#/details/{{course.courseId}}">
+                <img ng-src="{{course.smallIcon}}" width="200px"/>
+            </a>
+        </div>
+    </div>
+
+</div>

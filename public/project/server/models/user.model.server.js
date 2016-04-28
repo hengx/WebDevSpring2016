@@ -147,8 +147,8 @@ module.exports = function (db, mongoose) {
             if (err){
                 deferred.reject(err);
             } else {
-                // add course id to user likes
-                doc.likes.push (course.courseId);
+                // add course id to user courseIdsLikedByUser
+                doc.courseIdsLikedByUser.push (course.courseId);
 
                 //save user
                 doc.save (function (err, doc) {
@@ -204,7 +204,6 @@ module.exports = function (db, mongoose) {
             });
 
         return deferred.promise;
-
 
     }
 

@@ -16,13 +16,16 @@ module.exports = function (app, courseModel, userModel) {
     app.get("/api/project/loggedin", loggedin);
     app.post("/api/project/logout", logout);
     app.post("/api/project/register", register);
+    app.get("/api/project/profile/:userId", profile);
 
-    app.get("/api/project/profile/:userId", auth, profile);
-    app.post('/api/project/admin/user', admin, createNewUser);
+    app.put('/api/project/user/:userId', updateUser);
+    app.get("/api/project/favorite/:userId", getFavorite);
+
+    app.post('/api/project/admin/user', admin, adminCreateNewUser);
     app.get('/api/project/admin/user/:userId', admin, adminFindUserById);
-    app.get('/api/project/admin/user', admin, getUsers);
-    app.put('/api/project/admin/user/:userId', auth, updateUser);
-    app.delete('/api/project/admin/user/:userId', admin, removeUserById);
+    app.get('/api/project/admin/user', admin, adminGetUsers);
+    app.put('/api/project/admin/user/:userId', auth, adminUpdateUser);
+    app.delete('/api/project/admin/user/:userId', admin, adminRemoveUserById);
 
 
     function login(req, res) {
@@ -34,14 +37,14 @@ module.exports = function (app, courseModel, userModel) {
         //res.json(user);
         userModel.findUserByCredentials(credentials)
             .then(
-                function (doc){
+                function (doc) {
                     req.session.currentUser = doc;
                     console.log("session currentUser");
                     console.log(req.session.currentUser);
                     res.json(doc);
                 },
                 // send error if promise rejected
-                function (err){
+                function (err) {
                     res.status(400).send(err);
                 }
             )
@@ -60,8 +63,17 @@ module.exports = function (app, courseModel, userModel) {
     }
 
     function register(req, res) {
+
         //console.log("server side register req");
         //console.log(req);
+
+
+
+
+
+
+
+
         var newUser = req.body;
         console.log("server side register");
         console.log(newUser);
@@ -78,7 +90,16 @@ module.exports = function (app, courseModel, userModel) {
                     } else {
                         console.log("server side register create user");
                         console.log(user);
-                        return userModel.createUser(newUser);
+                        //return userModel.createUser(newUser);
+                        return userModel.createUser(newUser)
+                            .then(function (doc) {
+                                req.session.currentUser = doc;
+                                console.log("++ server side, user model create user in service")
+                                console.log(doc);
+                                return doc;
+                            }, function (err) {
+                                res.status(400).send(err);
+                            })
                     }
                 },
                 function (err) {
@@ -87,7 +108,10 @@ module.exports = function (app, courseModel, userModel) {
             )
             .then(
                 function (user) {
+                    console.log("reached before req login?");
+                    console.log(user);
                     if (user) {
+                        console.log("reached before req login 2222?");
                         req.login(user, function (err) {
                             console.log("user service server, login");
                             console.log(user);
@@ -109,46 +133,130 @@ module.exports = function (app, courseModel, userModel) {
         //res.json(user);
     }
 
-    function profile(req, res) {
+    function profile(req, res){
+        var userId = req.params.userId;
+        userModel.findUserById(userId)
+            .then(function(user){
+                res.json(user);
+            });
+
+    }
+
+    function getFavorite(req, res) {
         var userId = req.params.userId;
         var user = null;
-        //var user = userModel.findUserById(userId);
-        //var likedCourseIds = user.likes;
-        //var courses = courseModel.findCoursesByCourseIds(likedCourseIds);
-        //user.likesCourses = courses;
-        //res.json(user);
-        ////console.log(user);
 
         userModel.findUserById(userId)
             .then(
                 //first retrieve the user by userId
                 function (doc) {
                     user = doc;
-                    //fetch courses this user likes
-                    return courseModel.findCoursesByCourseIds(doc.likes);
+                    //fetch courses this user coursesIdLiked
+                    return courseModel.findCoursesByCourseIds(doc.courseIdsLikedByUser);
                 },
                 function (err) {
                     res.status(400).send(err);
                 }
             )
-            .then (
-                //fetch courses this user likes
-                function (courses){
-                    //list of courses this user likes
+            .then(
+                //fetch courses this user coursesIdLiked
+                function (courses) {
+                    //list of courses this user liked
                     //courses are not stored in database, only added for UI rendering
-                    user.likesCourses = courses;
+                    user.coursesLikedByUser = courses;
                     res.json(user);
                 },
 
                 //send error if promise rejected
-                function (err){
+                function (err) {
                     res.status(400).send(err);
                 }
             )
     }
 
+    function updateUser(req, res) {
+        var userId = req.params.userId;
+        var updatedUser = req.body;
+        console.log("user server service");
+        console.log(userId);
+        console.log(updatedUser);
 
-    function createNewUser(req, res) {
+        if (updatedUser.password && updatedUser.password !== '') {
+            updatedUser.password = bcrypt.hashSync(updatedUser.password);
+        } else {
+            delete updatedUser.password;
+        }
+        userModel
+            .updateUser(userId, updatedUser)
+            .then(function (user) {
+                user['_id'] = userId;
+                req.session.currentUser = updatedUser;
+                res.json(user);
+            }, function (err) {
+                res.status(400).send(err);
+            });
+    }
+
+
+    function localStrategy(username, password, done) {
+        console.log("password");
+        console.log(password);
+        userModel
+            .findUserByCredentials({username: username, password: password})
+            .then(
+                function (user) {
+                    console.log("1");
+                    console.log(user);
+                    if (!user) {
+                        return done(null, false);
+                    }
+                    return done(null, user);
+                },
+                function (err) {
+                    console.log("err");
+                    if (err) {
+                        return done(err);
+                    }
+                }
+            );
+    }
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        userModel
+            .findUserById(user._id)
+            .then(
+                function (user) {
+                    done(null, user);
+                },
+                function (err) {
+                    done(err, null);
+                }
+            );
+    }
+
+
+    function isAdmin(req, res, next) {
+        if (req.isAuthenticated() && req.user.roles.indexOf("admin") >= 0) {
+            next();
+        } else {
+            res.status(403);
+        }
+    }
+
+    function authorized(req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
+    }
+
+
+    function adminCreateNewUser(req, res) {
         var user = req.body;
         console.log('add new user');
         console.log(user);
@@ -164,7 +272,7 @@ module.exports = function (app, courseModel, userModel) {
     }
 
 
-    function getUsers(req, res) {
+    function adminGetUsers(req, res) {
         console.log('get users');
         var user = req.body;
 
@@ -217,44 +325,43 @@ module.exports = function (app, courseModel, userModel) {
     }
 
 
-
-
     function adminFindUserById(req, res) {
         var userId = req.params.userId;
         userModel
             .findUserById(userId)
-            .then(function (user) {
-                res.json(user);
-            });
-    }
-
-
-
-
-    function updateUser(req, res) {
-        var userId = req.params.userId;
-        var updatedUser = req.body;
-        console.log("user server service");
-        console.log(userId);
-        console.log(updatedUser);
-
-        if (updatedUser.password && updatedUser.password !== ''){
-            updatedUser.password = bcrypt.hashSync(updatedUser.password);
-        } else {
-            delete updatedUser.password;
-        }
-
-        userModel
-            .updateUser(userId, updatedUser)
-            .then(function (user) {
-                user['_id'] = userId;
-                res.json(user);
+            .then(function (doc) {
+                res.json(doc);
             }, function (err) {
                 res.status(400).send(err);
             });
     }
 
-    function removeUserById(req, res) {
+
+    function adminUpdateUser(req, res) {
+        var newUser = req.body;
+        if (typeof newUser.roles == "string") {
+            newUser.roles = newUser.roles.split(",");
+        }
+        userModel
+            .updateUser(req.params.userId, newUser)
+            .then(function (user) {
+                    return userModel.findAllUsers();
+                },
+                function (err) {
+                    res.status(400).send(err);
+                })
+            .then(
+                function (users) {
+                    res.json(users);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+
+    function adminRemoveUserById(req, res) {
         var userId = req.params.userId;
         userModel
             .deleteUser(userId)
@@ -264,62 +371,6 @@ module.exports = function (app, courseModel, userModel) {
 
     }
 
-    function localStrategy(username, password, done) {
-        console.log("password");
-        console.log(password);
-        userModel
-            .findUserByCredentials({username: username, password:password})
-            .then(
-                function (user) {
-                    console.log("1");
-                    console.log(user);
-                    if (!user) {
-                        return done(null, false);
-                    }
-                    return done(null, user);
-                },
-                function (err) {
-                    console.log("err");
-                    if (err) {
-                        return done(err);
-                    }
-                }
-            );
-    }
-
-    function serializeUser(user, done) {
-        done(null, user);
-    }
-
-    function deserializeUser(user, done) {
-        userModel
-            .findUserById(user._id)
-            .then(
-                function (user) {
-                    done(null, user);
-                },
-                function (err) {
-                    done(err, null);
-                }
-            );
-    }
-
-
-    function isAdmin(req, res, next) {
-        if (req.isAuthenticated()  && req.user.roles.indexOf("admin") >= 0) {
-            next();
-        } else {
-            res.status(403);
-        }
-    }
-
-    function authorized(req, res, next) {
-        if (!req.isAuthenticated()) {
-            res.send(401);
-        } else {
-            next();
-        }
-    }
 
 };
 

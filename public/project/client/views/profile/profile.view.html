@@ -6,41 +6,41 @@
         <div class="form-group">
             <label for="username" class="col-sm-3 control-label">Username:</label>
             <div class="col-sm-9">
-                <input ng-model="model.profile.username" type="text" class="form-control" id="username"
+                <input ng-model="model.currentUser.username" type="text" class="form-control" id="username"
                        placeholder="Username">
             </div>
         </div>
         <div class="form-group">
             <label for="password" class="col-sm-3 control-label">Password:</label>
             <div class="col-sm-9">
-                <input ng-model="model.profile.password" type="password" class="form-control" id="password"
+                <input ng-model="model.currentUser.password" type="password" class="form-control" id="password"
                        placeholder="Password">
             </div>
         </div>
         <div class="form-group">
             <label for="firstname" class="col-sm-3 control-label">First Name:</label>
             <div class="col-sm-9">
-                <input ng-model="model.profile.firstName" type="text" class="form-control" id="firstName"
+                <input ng-model="model.currentUser.firstName" type="text" class="form-control" id="firstName"
                        placeholder="First Name">
             </div>
         </div>
         <div class="form-group">
             <label for="lastname" class="col-sm-3 control-label">Last Name:</label>
             <div class="col-sm-9">
-                <input ng-model="model.profile.lastName" type="text" class="form-control" id="lastName"
+                <input ng-model="model.currentUser.lastName" type="text" class="form-control" id="lastName"
                        placeholder="Last Name">
             </div>
         </div>
         <div class="form-group">
             <label for="email" class="col-sm-3 control-label">Email:</label>
             <div class="col-sm-9">
-                <input ng-model="model.profile.email" type="email" class="form-control" id="email"
+                <input ng-model="model.currentUser.email" type="email" class="form-control" id="email"
                        placeholder="Email">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button ng-click="model.updateUser(model.profile)" type="submit" class="btn btn-primary btn-default btn-block"
+                <button ng-click="model.updateUser(model.currentUser)" type="submit" class="btn btn-primary btn-default btn-block"
                         role="button">
                     Update
                 </button>
@@ -53,18 +53,17 @@
 <br>
 <br>
 
-<div ng-if="model.profile.likesCourses.length">
+<!--<div ng-if="model.profile.coursesLiked.length">-->
 
-    <h3>Courses I Like</h3>
+    <!--<h3>Courses I Like</h3>-->
 
-    <div class="panel panel-default jga-course-panel"
-         ng-repeat="course in model.profile.likesCourses">
-        <div class="panel-heading"><a href="#/details/{{course.id}}">{{course.name}}</a></div>
-        <div class="panel-body"><a href="#/details/{{course.id}}"><img ng-src="{{course.smallIcon}}" width="100px"/></a>
-        </div>
-    </div>
+    <!--<div class="panel panel-default jga-course-panel"-->
+         <!--ng-repeat="course in model.profile.coursesLiked">-->
+        <!--<div class="panel-heading"><a href="#/details/{{course.courseId}}">{{course.name}}</a></div>-->
+        <!--<div class="panel-body"><a href="#/details/{{course.courseId}}"><img ng-src="{{course.smallIcon}}" width="100px"/></a>-->
+        <!--</div>-->
+    <!--</div>-->
 
-</div>
 <br>
 <br>
 <br>
