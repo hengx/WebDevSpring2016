@@ -52,6 +52,9 @@
         }
 
         function updateUser(userId, user) {
+            console.log("print user service client");
+            console.log(userId);
+            console.log(user);
             return $http.put("/api/assignment/admin/user/" + userId, user);
         }
 

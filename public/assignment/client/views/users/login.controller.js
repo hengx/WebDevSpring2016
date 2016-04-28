@@ -21,7 +21,7 @@
             }
 
             UserService
-                //.findUserByCredentials(username, password)
+                //.login(username, password)
                 .login({username:username, password:password})
                 .then(function (response) {
                     if (response.data) {

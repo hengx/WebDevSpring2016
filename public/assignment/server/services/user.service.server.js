@@ -17,7 +17,7 @@ module.exports = function (app, userModel) {
     //app.get("/api/assignment/user", getUsers);
     //app.get("/api/assignment/user/:id", findUserById);
     //app.get("/api/assignment/user?username=:username", findUserByUsername);
-    //app.get("/api/assignment/user?username=:username&password=:password", findUserByCredentials);//find user by credential
+    //app.get("/api/assignment/user?username=:username&password=:password", login);//find user by credential
     //app.put("/api/assignment/user/:id", updateUser);
     //app.delete("/api/assignment/user/:id", removeUserById);
 
@@ -40,7 +40,7 @@ module.exports = function (app, userModel) {
         console.log(user);
         user.password = bcrypt.hashSync(user.password);
         userModel
-            .createUser(user)
+            .register(user)
             .then(function (user) {
                     res.json(user);
                 },
@@ -51,14 +51,14 @@ module.exports = function (app, userModel) {
 
 
     function getUsers(req, res) {
-        console.log('get users')
+        console.log('get users');
         if (req.query.username && req.query.password) {
             findUserByCredentials(req, res);
         } else if (req.query.username) {
             findUserByUsername(req, res);
         }
         else {
-            console.log('get All users')
+            console.log('get All users');
             userModel
                 .findAllUsers()
                 .then(function (users) {
@@ -81,7 +81,7 @@ module.exports = function (app, userModel) {
                 password: password
             };
             userModel
-                .findUserByCredentials(credentials)
+                .login(credentials)
                 .then(function (user) {
                     res.json(user);
                 }, function (err) {
@@ -153,18 +153,18 @@ module.exports = function (app, userModel) {
 
     function localStrategy(username, password, done) {
         userModel
-            .findUserByCredentials({username: username, password:password})
+            .login({username: username, password:password})
             .then(
                 function (user) {
-                    console.log("1")
-                    console.log(user)
+                    console.log("1");
+                    console.log(user);
                     if (!user) {
                         return done(null, false);
                     }
                     return done(null, user);
                 },
                 function (err) {
-                    console.log("err")
+                    console.log("err");
                     if (err) {
                         return done(err);
                     }
@@ -200,7 +200,7 @@ module.exports = function (app, userModel) {
                     if (user) {
                         res.json(null);
                     } else {
-                        return userModel.createUser(newUser);
+                        return userModel.register(newUser);
                     }
                 },
                 function (err) {

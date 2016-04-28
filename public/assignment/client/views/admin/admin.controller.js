@@ -61,7 +61,7 @@
                 user.roles = user.roles.split(',');
             }
             UserService
-                .createUser(user)
+                .register(user)
                 .then(function (response) {
                     if (response.data !== undefined) {
                         $scope.users.push(response.data);

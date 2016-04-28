@@ -1,1 +1,32 @@
 <h2>Search</h2>
+<div ng-show="model.message" class="alert alert-danger" role="alert">{{model.message}}</div>
+
+<input ng-model="model.course.name" class="form-control" placeholder="Java Programming"/>
+<button ng-click="model.search(model.course)" class="btn btn-primary btn-block">Search</button>
+
+<div ng-if="model.data">
+    <h3>Search Result</h3>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Poster</th>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="course in model.data.elements">
+            <td>
+                <img ng-src="{{course.smallIcon}}" height="100px"/>
+
+            </td>
+            <td><a href="#/details/{{course.id}}">
+                {{course.name}}
+            </a></td>
+            <td>{{course.id}}</td>
+            <td>{{course.shortDescription}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

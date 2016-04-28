@@ -1,0 +1,36 @@
+<h2>Details</h2>
+
+<h3>{{model.data.elements[0].name}}</h3>
+
+
+<img ng-src="{{model.data.elements[0].smallIcon}}" height = "200px"/>
+<br/>
+<br/>
+
+
+<button class="btn btn-primary"
+        ng-click="model.favorite(model.data.elements[0])">
+    <span ng-show = "model.course.likes.indexOf(currentUser._id) > -1" class="glyphicon glyphicon-star"></span>
+    <span ng-show = "!model.course || !model.course.likes || model.course.likes.indexOf(currentUser._id) == -1"
+          class = "glyphicon glyphicon-star-empty"></span>
+</button>
+
+<h4>Description</h4>
+
+<p>{{model.data.elements[0].shortDescription}}</p>
+
+<!--{{model.userLikes}}-->
+
+<div ng-if="model.course.userLikes">
+    <h4>Other Users that Like This Course</h4>
+    <ul>
+        <li ng-repeat="user in model.course.userLikes">
+            <a href="#/profile/{{user.username}}">
+            {{user.username}}
+            </a>
+        </li>
+    </ul>
+</div>
+
+<br>
+<br>

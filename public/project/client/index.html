@@ -3,9 +3,20 @@
 <head>
     <!--bootstrap-->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.12.0/bootstrap-social.min.css" rel="stylesheet"/>
+
+    <link href="css/jga.css" rel="stylesheet"/>
+    <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
+    <!--<link href="css/bootstrap-theme.min.css" rel="stylesheet">-->
+    <link href="css/mystyles.css" rel="stylesheet">
+    <!--<link href="css/font-awesome.min.css" rel="stylesheet">-->
+    <!--<link href="css/bootstrap-social.css" rel="stylesheet">-->
+
     <!--jQuery and jQueryUI-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <!--angularJS and angularRouteJS-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
@@ -13,18 +24,43 @@
 
     <script src="app.js"></script>
     <script src="config.js"></script>
+    <script src="views/header/navigation.controller.js"></script>
+    <script src="views/login/login.controller.js"></script>
+    <script src="views/profile/profile.controller.js"></script>
+    <script src="views/register/register.controller.js"></script>
+    <script src="views/search/search.controller.js"></script>
+    <script src="views/details/details.controller.js"></script>
+    <script src="views/admin/admin.controller.js"></script>
+    <script src="views/main/main.controller.js"></script>
+
+
+    <script src="services/user.service.client.js"></script>
+    <script src="services/moocapi.service.client.js"></script>
+    <script src="services/course.service.client.js"></script>
+
+    <link href="/favicon.ico" type="image/x-icon" rel="icon" />
+
 
     <meta charset="UTF-8">
     <title>MOOC Course</title>
 
 </head>
-<body>
+<body ng-controller="MainController">
 <div class="container">
     <h1>MOOC Course Application</h1>
     <div ng-include="'views/header/header.view.html'"></div>
 
-    <div ng-view></div>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-2 main" ng-view></div>
+    </div>
 </div>
 
+<footer>
+    <div ng-include src="'views/footer/footer.view.html'"></div>
+</footer>
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
+
 </html>
