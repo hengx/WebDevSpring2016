@@ -30,8 +30,8 @@ module.exports = function (app, courseModel, userModel) {
 
     function login(req, res) {
         var credentials = req.body;
-        console.log("login service server, credentials");
-        console.log(credentials);
+        //console.log("login service server, credentials");
+        //console.log(credentials);
         //var user = userModel.login(credentials);
         //req.session.currentUser = user;
         //res.json(user);
@@ -39,8 +39,8 @@ module.exports = function (app, courseModel, userModel) {
             .then(
                 function (doc) {
                     req.session.currentUser = doc;
-                    console.log("session currentUser");
-                    console.log(req.session.currentUser);
+                    //console.log("session currentUser");
+                    //console.log(req.session.currentUser);
                     res.json(doc);
                 },
                 // send error if promise rejected
@@ -51,8 +51,8 @@ module.exports = function (app, courseModel, userModel) {
     }
 
     function loggedin(req, res) {
-        console.log("loggedin, server");
-        console.log(req.session.currentUser);
+        //console.log("loggedin, server");
+        //console.log(req.session.currentUser);
         res.json(req.isAuthenticated() ? req.session.currentUser : '0');
     }
 
@@ -67,35 +67,28 @@ module.exports = function (app, courseModel, userModel) {
         //console.log("server side register req");
         //console.log(req);
 
-
-
-
-
-
-
-
         var newUser = req.body;
-        console.log("server side register");
-        console.log(newUser);
+        //console.log("server side register");
+        //console.log(newUser);
         newUser.password = bcrypt.hashSync(newUser.password);
 
         userModel
             .findUserByUsername(newUser.username)
             .then(
                 function (user) {
-                    console.log("server side, service, find user by username");
-                    console.log(user);
+                    //console.log("server side, service, find user by username");
+                    //console.log(user);
                     if (user) {
                         res.json(null);
                     } else {
-                        console.log("server side register create user");
-                        console.log(user);
+                        //console.log("server side register create user");
+                        //console.log(user);
                         //return userModel.createUser(newUser);
                         return userModel.createUser(newUser)
                             .then(function (doc) {
                                 req.session.currentUser = doc;
-                                console.log("++ server side, user model create user in service")
-                                console.log(doc);
+                                //console.log("++ server side, user model create user in service")
+                                //console.log(doc);
                                 return doc;
                             }, function (err) {
                                 res.status(400).send(err);
@@ -108,13 +101,13 @@ module.exports = function (app, courseModel, userModel) {
             )
             .then(
                 function (user) {
-                    console.log("reached before req login?");
-                    console.log(user);
+                    //console.log("reached before req login?");
+                    //console.log(user);
                     if (user) {
-                        console.log("reached before req login 2222?");
+                        //console.log("reached before req login 2222?");
                         req.login(user, function (err) {
-                            console.log("user service server, login");
-                            console.log(user);
+                            //console.log("user service server, login");
+                            //console.log(user);
                             if (err) {
                                 res.status(400).send(err);
                             } else {
@@ -177,9 +170,9 @@ module.exports = function (app, courseModel, userModel) {
     function updateUser(req, res) {
         var userId = req.params.userId;
         var updatedUser = req.body;
-        console.log("user server service");
-        console.log(userId);
-        console.log(updatedUser);
+        //console.log("user server service");
+        //console.log(userId);
+        //console.log(updatedUser);
 
         if (updatedUser.password && updatedUser.password !== '') {
             updatedUser.password = bcrypt.hashSync(updatedUser.password);
@@ -199,21 +192,21 @@ module.exports = function (app, courseModel, userModel) {
 
 
     function localStrategy(username, password, done) {
-        console.log("password");
-        console.log(password);
+        //console.log("password");
+        //console.log(password);
         userModel
             .findUserByCredentials({username: username, password: password})
             .then(
                 function (user) {
-                    console.log("1");
-                    console.log(user);
+                    //console.log("1");
+                    //console.log(user);
                     if (!user) {
                         return done(null, false);
                     }
                     return done(null, user);
                 },
                 function (err) {
-                    console.log("err");
+                    //console.log("err");
                     if (err) {
                         return done(err);
                     }

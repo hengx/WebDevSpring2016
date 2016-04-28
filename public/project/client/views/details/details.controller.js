@@ -3,7 +3,7 @@
         .module("MoocApp")
         .controller("DetailsController", detailsController);
 
-    function detailsController($routeParams, MoocService, $rootScope,$location, CourseService) {
+    function detailsController($routeParams, MoocService, $rootScope,$location, CourseService, UserService) {
         var vm = this;
         var courseId = $routeParams.courseId;
         vm.favorite = favorite;
@@ -31,10 +31,11 @@
 
         function favorite(course){
             if (currentUser){
-                vm.course.coursesIdLiked = [];
-                vm.course.coursesIdLiked.push(currentUser._id);
+                vm.course.userIdsLikedCourse = [];
+                vm.course.userIdsLikedCourse.push(currentUser._id);
+
                 CourseService
-                    .userLikesCourse(currentUser._id, course);
+                    .userLikesCourse(currentUser._id, course)
             } else {
                 $location.url("/login");
             }

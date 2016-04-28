@@ -29,7 +29,7 @@
                     checkLoggedIn: checkLoggedIn
                 }
             })
-            .when("/favorite", {
+            .when("/favorite/:username?", {
                 templateUrl: "views/favorite/favorite.view.html",
                 controller: "FavoriteController",
                 controllerAs: "model",

@@ -18,12 +18,6 @@ module.exports = function(db, mongoose){
 
 
     function findCourseByCourseId(courseId){
-        //for (var c in courses){
-        //    if (courses[c].id === courseId){
-        //        return courses[c];
-        //    }
-        //}
-        //return null;
 
         var deferred = q.defer();
         Course.findOne({courseId: courseId}, function(err, doc){
@@ -54,20 +48,6 @@ module.exports = function(db, mongoose){
 
 
 
-        //var courses = [];
-        //for (var id in courseIds){
-        //    var course = findCourseByCourseId(courseIds[id]);
-        //    if (course){
-        //        courses.push({
-        //            _id : course._id,
-        //            name: course.name,
-        //            smallIcon: course.smallIcon,
-        //            courseId: course.courseId
-        //        });
-        //    }
-        //}
-        //return courses;
-
     }
     function createCourse(course){
         var course = new Course({
@@ -75,7 +55,8 @@ module.exports = function(db, mongoose){
             courseId: course.courseId,
             name: course.name,
             smallIcon: course.smallIcon,
-            shortDescription: course.shortDescription
+            shortDescription: course.shortDescription,
+            userIdsLikedCourse: []
 
         });
         var deferred = q.defer();
@@ -98,9 +79,11 @@ module.exports = function(db, mongoose){
 
 
     function setUserLikesCourse(userId, course){
+        console.log("print course, course model server, setUserLikesCourse");
+        console.log(course);
         var deferred = q.defer();
         // find the course by course ID
-        Course.findOne({courseId: course.courseId},
+        Course.findOne({courseId: course.id},
         function (err, doc){
             // reject promise if error
             if (err){
@@ -122,7 +105,7 @@ module.exports = function(db, mongoose){
                 // if there's no course
                 // create a new instance
                 course = new Course({
-                    courseId: course.courseId,
+                    courseId: course.id,
                     name: course.name,
                     smallIcon: course.smallIcon,
                     shortDescription: course.shortDescription,

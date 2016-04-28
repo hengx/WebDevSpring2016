@@ -20,6 +20,9 @@
             </li>
             <li ng-class="{'active': model.$location.url().indexOf('/details')>=0}"
                 ng-show="model.$location.url().indexOf('/details')>=0"><a>Details</a></li>
+            <li ng-show="currentUser.roles.indexOf('admin') >= 0"
+                ng-class="{'active': $location.url() === '/admin'}">
+                <a href="#/admin" data-toggle="collapse" data-target=".navbar-collapse.in">Admin</a></li>
         </ul>
     </nav>
 </div>

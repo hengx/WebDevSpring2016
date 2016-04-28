@@ -11,7 +11,7 @@
             setCurrentUser: setCurrentUser,
             register: register,
             logout: logout,
-            getFavorites: getFavorites,
+            getFavorite: getFavorite,
             adminFindUserById: adminFindUserById,
             findAllUsers: findAllUsers,
             deleteUserById: deleteUserById,
@@ -22,6 +22,7 @@
             findUserByUsername:findUserByUsername
         };
         return api;
+
 
         function login(credentials) {
             //console.log(credentials);
@@ -34,13 +35,13 @@
 
         function setCurrentUser(user) {
             $rootScope.currentUser = user;
-            console.log("rootscope currentUser");
-            console.log($rootScope.currentUser);
+            //console.log("rootscope currentUser");
+            //console.log($rootScope.currentUser);
         }
 
         function register(user) {
-            console.log("user service client register");
-            console.log(user);
+            //console.log("user service client register");
+            //console.log(user);
             return $http.post("/api/project/register", user);
         }
 
@@ -48,7 +49,7 @@
             return $http.post("/api/project/logout");
         }
 
-        function getFavorites() {
+        function getFavorite() {
             //console.log($rootScope.currentUser._id);
             return $http.get("/api/project/favorite/" + $rootScope.currentUser._id);
         }
@@ -62,6 +63,8 @@
         }
 
         function deleteUserById(userId) {
+            console.log("user service client, delete");
+            console.log(userId);
             return $http.delete("/api/project/admin/user/" + userId);
         }
 
@@ -74,8 +77,8 @@
         }
 
         function createUser(user) {
-            console.log("create");
-            console.log(user);
+            //console.log("create");
+            //console.log(user);
             return $http.post("/api/project/admin/user", user);
         }
 

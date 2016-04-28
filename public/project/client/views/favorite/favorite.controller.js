@@ -6,15 +6,15 @@
     function favoriteController(UserService, $location, $routeParams) {
         var vm = this;
 
-        var userId = $routeParams.userId;
-        console.log(userId);
+        var username = $routeParams.username;
+        console.log(username);
 
         function init() {
             UserService
-                .getFavorites()
+                .getFavorite()
                 .then(function (response) {
-                    vm.user = response.data;
-                    console.log(vm.user);
+                    vm.favorite = response.data;
+                    console.log(vm.favorite);
                 });
         }
         return init();

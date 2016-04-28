@@ -26,8 +26,8 @@
 
 
         function updateUser(updatedUser) {
-            console.log("print updatedUser");
-            console.log(updatedUser);
+            //console.log("print updatedUser");
+            //console.log(updatedUser);
 
             if (updatedUser == null || updatedUser.username == null ||
                 updatedUser.password == null) {
@@ -35,15 +35,15 @@
                 return;
             }
 
-            console.log("here");
-            console.log(updatedUser._id);
-            console.log(updatedUser);
+            //console.log("here");
+            //console.log(updatedUser._id);
+            //console.log(updatedUser);
             UserService
                 .updateUser(updatedUser._id, updatedUser)
                 .then(function (response) {
                     if (response.data) {
-                        console.log("update user in controller, response.data");
-                        console.log("response.data");
+                        //console.log("update user in controller, response.data");
+                        //console.log("response.data");
                         //vm.currentUser = response.data;
                         vm.message = "User profile updated successfully";
                     }

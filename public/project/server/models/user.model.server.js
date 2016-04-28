@@ -161,7 +161,7 @@ module.exports = function (db, mongoose) {
                 });
             }
         });
-        return deferred;
+        return deferred.promise;
     }
 
     function findAllUsers() {

@@ -26,10 +26,14 @@
         init();
 
         function remove(user, index) {
+            //console.log("admin controller, remove, print index");
+            //console.log(index);
             UserService
                 .deleteUserById(user._id)
                 .then(function (response) {
                     $scope.users.splice(index, 1);
+                    //console.log("print after splice");
+                    //console.log($scope.users);
                 }, handleError);
             //.then(handleSuccess, handleError);
         }
@@ -46,6 +50,7 @@
                         if ($scope.users[u]._id === user._id) {
                             user.roles = user.roles.toString();
                             $scope.users[u] = user;
+                            $scope.selectedUser = null;
                         }
                     }
                 }, handleError);
@@ -54,8 +59,8 @@
         }
 
         function add(user) {
-            console.log("add user");
-            console.log(user);
+            //console.log("add user");
+            //console.log(user);
 
             if (user.roles) {
                 user.roles = user.roles.split(',');
@@ -72,8 +77,8 @@
         }
 
         function select(user) {
-            console.log("select user");
-            console.log(user);
+            //console.log("select user");
+            //console.log(user);
 
             user.roles = user.roles.toString();
 

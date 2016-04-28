@@ -12,7 +12,7 @@ module.exports = function (app, courseModel, userModel) {
                 function (doc) {
                     course = doc;
                     if (doc) {
-                        return userModel.findUsersByIds(course.coursesIdLiked);
+                        return userModel.findUsersByIds(course.userIdsLikedCourse);
                     } else {
                         res.json({});
                     }

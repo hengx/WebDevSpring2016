@@ -12,7 +12,7 @@
 
 
         function userLikesCourse(userId, course){
-            return $http.post("/api/project/user/"+userId+"/course/"+course.courseId, course);
+            return $http.post("/api/project/user/"+userId+"/course/"+course.id, course);
         }
 
         function findUserLikes(courseId){

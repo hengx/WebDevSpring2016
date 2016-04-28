@@ -1,13 +1,15 @@
 <h2>Favorite</h2>
 
-{{model.user}}
+{{model.favorite}}
 
-<div ng-if="model.user.coursesLikedByUser.length">
+<div ng-if="model.favorite.coursesLikedByUser.length">
 
     <h3>Courses I Like</h3>
 
     <div class="panel panel-default jga-movie-panel"
-         ng-repeat="course in model.user.coursesLikedByUser">
+         ng-repeat="course in model.favorite.coursesLikedByUser">
+
+        <br>
         <div class="panel-heading">
             <a href="#/details/{{course.courseId}}">
                 {{course.name}}
