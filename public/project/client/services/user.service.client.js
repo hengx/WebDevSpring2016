@@ -50,8 +50,8 @@
         }
 
         function getFavorite(userId) {
-            console.log("print current user in user service client");
-            console.log($rootScope.currentUser);
+            //console.log("print current user in user service client");
+            //console.log($rootScope.currentUser);
             return $http.get("/api/project/favorite/" + userId);
         }
 
@@ -70,6 +70,8 @@
         }
 
         function updateUser(userId, user) {
+            console.log("before user service update user, print user");
+            console.log(user);
             return $http.put("/api/project/user/" + userId, user);
         }
 

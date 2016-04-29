@@ -129,9 +129,14 @@ module.exports = function (app, courseModel, userModel) {
             .then(
                 //fetch courses this user coursesIdLiked
                 function (courses) {
+                    console.log("check if the get fav works in user server service, print courses");
+                    console.log(courses);
                     //list of courses this user liked
                     //courses are not stored in database, only added for UI rendering
                     user.coursesLikedByUser = courses;
+
+                    console.log("check if the get fav works in user server service, print user");
+                    console.log(user);
                     res.json(user);
                 },
 
@@ -154,6 +159,9 @@ module.exports = function (app, courseModel, userModel) {
         userModel
             .updateUser(userId, updatedUser)
             .then(function (user) {
+                console.log("print from user server service, after update value");
+                console.log(user);
+
                 user['_id'] = userId;
                 req.session.currentUser = user;
                 res.json(user);

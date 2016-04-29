@@ -154,6 +154,8 @@ module.exports = function (db, mongoose) {
             {_id: userId},
             {$set: user},
             function (err, doc) {
+                console.log("updated user from user model server, check course");
+                console.log(doc);
                 if (err) {
                     deferred.reject(err);
                 } else {

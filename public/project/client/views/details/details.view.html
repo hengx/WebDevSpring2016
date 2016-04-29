@@ -4,7 +4,7 @@
     <h3>{{model.data.elements[0].name}}</h3>
 
 
-    <img ng-src="{{model.data.elements[0].smallIcon}}" height="200px"/>
+    <img ng-src="{{model.data.elements[0].smallIcon}}" height="300px"/>
     <br/>
     <br/>
 
@@ -24,7 +24,7 @@
 
     <!--{{model.course.userListsLikedCourse}}-->
 
-    <div ng-if="model.course.userListsLikedCourse.length() > 0">
+    <div ng-if="model.course.userListsLikedCourse">
 
         <h4>Other Users that Like This Course</h4>
         <ul>

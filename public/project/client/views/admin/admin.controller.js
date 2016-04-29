@@ -6,7 +6,6 @@
 
     function AdminController(UserService,$scope) {
 
-        //var vm = this;
         $scope.add = add;
         $scope.select = select;
         $scope.remove = remove;
@@ -31,34 +30,15 @@
                 .deleteUserById(user._id)
                 .then(handleSuccess, handleError);
         }
-        //function remove(user, index) {
-        //    UserService
-        //        .deleteUserById(user._id)
-        //        .then(function (response) {
-        //            $scope.users.splice(index, 1);
-        //        }, handleError);
-        //}
 
         function update(user) {
-            //if (user !== undefined) {
-            //    //if (user.roles) {
-            //    //    user.roles = user.roles.split(',');
-            //    //}
-            //}
+
             UserService
                 .adminUpdateUser(user._id, user)
                 .then(function (response) {
                     $scope.users = response.data;
                     $scope.selectedUser = null;
-                    //for (var u in $scope.users) {
-                    //    if ($scope.users[u]._id === user._id) {
-                    //        user.roles = user.roles.toString();
-                    //        $scope.users[u] = user;
-                    //        $scope.selectedUser = null;
-                    //    }
-                    //}
                 }, handleError);
-            //.then(handleSuccess, handleError);
 
         }
 
