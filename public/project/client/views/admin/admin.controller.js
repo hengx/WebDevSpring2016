@@ -54,6 +54,7 @@
                 .then(function (response) {
                     if (response.data !== undefined) {
                         $scope.users.push(response.data);
+                        $scope.selectedUser = null;
                     }
                 });
             user.roles = user.roles.join();
