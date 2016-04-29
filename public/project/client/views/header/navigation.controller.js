@@ -3,15 +3,21 @@
         .module("MoocApp")
         .controller("NavigationController", navigationController);
 
-    function navigationController($location, UserService){
+    function navigationController($location, $rootScope, UserService){
         var vm = this;
         vm.logout = logout;
+        vm.favorite = favorite;
 
         function init(){
             vm.$location = $location;
 
         }
         init();
+
+        function favorite() {
+            var userId = $rootScope.currentUser._id;
+            $location.url('/favorite/'+userId)
+        }
 
         function logout(){
             UserService

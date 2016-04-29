@@ -8,6 +8,7 @@
         var courseId = $routeParams.courseId;
         vm.favorite = favorite;
         var currentUser = $rootScope.currentUser;
+        vm.currentUser = currentUser;
         //console.log(courseId);
 
         function init() {

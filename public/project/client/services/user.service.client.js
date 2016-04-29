@@ -49,10 +49,10 @@
             return $http.post("/api/project/logout");
         }
 
-        function getFavorite() {
+        function getFavorite(userId) {
             console.log("print current user in user service client");
             console.log($rootScope.currentUser);
-            return $http.get("/api/project/favorite/" + $rootScope.currentUser._id);
+            return $http.get("/api/project/favorite/" + userId);
         }
 
         function adminFindUserById (userId) {

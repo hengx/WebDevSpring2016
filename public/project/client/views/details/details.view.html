@@ -23,9 +23,10 @@
 {{model.course.userListsLikedCourse}}
 
 <div ng-if="model.course.userListsLikedCourse">
+
     <h4>Other Users that Like This Course</h4>
     <ul>
-        <li ng-repeat="user in model.course.userListsLikedCourse">
+        <li ng-repeat="user in model.course.userListsLikedCourse | excludeCurrentUser: model.currentUser">
             <a href="#/favorite/{{user._id}}">
             {{user.username}}
             </a>

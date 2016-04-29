@@ -12,7 +12,7 @@
 
         function init() {
             UserService
-                .getFavorite()
+                .getFavorite(userId)
                 .then(function (response) {
                     vm.favorite = response.data;
                     console.log("print vm.favorite");

@@ -155,7 +155,7 @@ module.exports = function (app, courseModel, userModel) {
             .updateUser(userId, updatedUser)
             .then(function (user) {
                 user['_id'] = userId;
-                req.session.currentUser = updatedUser;
+                req.session.currentUser = user;
                 res.json(user);
             }, function (err) {
                 res.status(400).send(err);
