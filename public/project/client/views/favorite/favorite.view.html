@@ -5,15 +5,12 @@
 
 <div ng-if="model.favorite.coursesLikedByUser.length">
 
-    <div class="col-sm-11 col-sm-offset-1 col-md-10 col-md-offset-2 main">
+    <div class="col-sm-12 col-sm-offset-2 main">
         <h3>Courses I Like</h3>
 
         <div class="panel panel-default jga-course-panel"
              ng-repeat="course in model.favorite.coursesLikedByUser">
 
-            <!--<br>-->
-            <!--{{course}}-->
-            <!--<br>-->
             <div class="panel-heading">
                 <a href="#/details/{{course.courseId}}">
                     {{course.name}}
