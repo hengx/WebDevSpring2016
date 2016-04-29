@@ -1,27 +1,30 @@
 <h2>Favorite</h2>
 
-{{model.favorite}}
+<!--{{model.favorite}}-->
+<br/>
 
 <div ng-if="model.favorite.coursesLikedByUser.length">
 
-    <h3>Courses I Like</h3>
+    <div class="col-sm-11 col-sm-offset-1 col-md-10 col-md-offset-2 main">
+        <h3>Courses I Like</h3>
 
-    <div class="panel panel-default jga-movie-panel"
-         ng-repeat="course in model.favorite.coursesLikedByUser">
+        <div class="panel panel-default jga-course-panel"
+             ng-repeat="course in model.favorite.coursesLikedByUser">
 
-        <br>
-        {{course}}
-        <br>
-        <div class="panel-heading">
-            <a href="#/details/{{course.courseId}}">
-                {{course.name}}
-            </a>
-        </div>
-        <div class="panel-body">
-            <a href="#/details/{{course.courseId}}">
-                <img ng-src="{{course.smallIcon}}" width="200px"/>
-            </a>
-            <p>{{course.shortDescription}}</p>
+            <!--<br>-->
+            <!--{{course}}-->
+            <!--<br>-->
+            <div class="panel-heading">
+                <a href="#/details/{{course.courseId}}">
+                    {{course.name}}
+                </a>
+            </div>
+            <div class="panel-body">
+                <a href="#/details/{{course.courseId}}">
+                    <img ng-src="{{course.smallIcon}}" width="200px"/>
+                </a>
+                <p>{{course.shortDescription}}</p>
+            </div>
         </div>
     </div>
 

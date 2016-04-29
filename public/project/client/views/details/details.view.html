@@ -1,35 +1,38 @@
 <h2 class="page-header">Details</h2>
+<div class="col-sm-11 col-sm-offset-1 col-md-10 col-md-offset-2 main">
 
-<h3>{{model.data.elements[0].name}}</h3>
+    <h3>{{model.data.elements[0].name}}</h3>
 
 
-<img ng-src="{{model.data.elements[0].smallIcon}}" height = "200px"/>
-<br/>
-<br/>
+    <img ng-src="{{model.data.elements[0].smallIcon}}" height="200px"/>
+    <br/>
+    <br/>
 
-<!--{{model.data.elements[0]}}-->
+    <!--{{model.data.elements[0]}}-->
 
-<button class="btn btn-primary"
-        ng-click="model.favorite(model.data.elements[0])">
-    <span ng-show = "model.course.userIdsLikedCourse.indexOf(currentUser._id) > -1" class="glyphicon glyphicon-star"></span>
-    <span ng-show = "!model.course || !model.course.userIdsLikedCourse || model.course.userIdsLikedCourse.indexOf(currentUser._id) == -1"
-          class = "glyphicon glyphicon-star-empty"></span>
-</button>
+    <button class="btn btn-primary"
+            ng-click="model.favorite(model.data.elements[0])">
+        <span ng-show="model.course.userIdsLikedCourse.indexOf(currentUser._id) > -1"
+              class="glyphicon glyphicon-star"></span>
+    <span ng-show="!model.course || !model.course.userIdsLikedCourse || model.course.userIdsLikedCourse.indexOf(currentUser._id) == -1"
+          class="glyphicon glyphicon-star-empty"></span>
+    </button>
 
-<h4>Description</h4>
+    <h4>Course Description</h4>
 
-<p>{{model.data.elements[0].shortDescription}}</p>
+    <p>{{model.data.elements[0].shortDescription}}</p>
 
-{{model.course.userListsLikedCourse}}
+    <!--{{model.course.userListsLikedCourse}}-->
 
-<div ng-if="model.course.userListsLikedCourse">
+    <div ng-if="model.course.userListsLikedCourse.length() > 0">
 
-    <h4>Other Users that Like This Course</h4>
-    <ul>
-        <li ng-repeat="user in model.course.userListsLikedCourse | excludeCurrentUser: model.currentUser">
-            <a href="#/favorite/{{user._id}}">
-            {{user.username}}
-            </a>
-        </li>
-    </ul>
+        <h4>Other Users that Like This Course</h4>
+        <ul>
+            <li ng-repeat="user in model.course.userListsLikedCourse | excludeCurrentUser: model.currentUser">
+                <a href="#/favorite/{{user._id}}">
+                    {{user.username}}
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>

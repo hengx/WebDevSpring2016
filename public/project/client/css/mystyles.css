@@ -1,70 +1,469 @@
-.row-header{
-    margin:0px auto;
-    padding:0px auto;
+.row-header {
+    margin: 0px auto;
+    padding: 0px auto;
 }
 
 .row-content {
-    margin:0px auto;
+    margin: 0px auto;
     padding: 50px 0px 50px 0px;
     border-bottom: 1px ridge;
-    min-height:400px;
+    min-height: 400px;
 }
 
-.row-footer{
+.row-footer {
     background-color: #AfAfAf;
-    margin:0px auto;
+    margin: 0px auto;
     padding: 20px 0px 20px 0px;
 }
 
 .jumbotron {
-  padding:70px 30px 70px 30px;
-  margin: 0px auto;
-  background: #7986CB;
-  color:floralwhite;
+    padding: 70px 30px 70px 30px;
+    margin: 0px auto;
+    background: #7986CB;
+    color: floralwhite;
 }
 
 address {
-  font-size:80%;
-  margin:0px;
-  color:#0f0f0f;
+    font-size: 80%;
+    margin: 0px;
+    color: #0f0f0f;
 }
 
 body {
-  align:center;
-  padding:50px 0px 0px 0px;
-  z-index:0;
+    align: center;
+    padding: 50px 0px 0px 0px;
+    z-index: 0;
 }
 
 .navbar-inverse {
-  background: #303F9F;
+    background: #303F9F;
 }
 
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
-  color: #fff;
-  background: #1A237E;
+    color: #fff;
+    background: #1A237E;
 }
 
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
-  color: #fff;
-  background: #1A237E;
+    color: #fff;
+    background: #1A237E;
 }
 
 .navbar-inverse .navbar-nav .open .dropdown-menu > li > a,
 .navbar-inverse .navbar-nav .open .dropdown-menu {
-  background-color: #303F9F;
-  color:#eeeeee;
+    background-color: #303F9F;
+    color: #eeeeee;
 }
 
 .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
-  color:#000000;
+    color: #000000;
 }
+
 .tab-content {
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     padding: 10px;
 }
+
+header {
+}
+
+header h2 {
+    letter-spacing: -1px;
+    font-weight: 700;
+}
+
+header .byline {
+    display: block;
+    text-transform: uppercase;
+}
+
+#header {
+    position: relative;
+    background: #ddd url(images/header.jpg) no-repeat center;
+    background-size: cover;
+}
+
+#logo {
+}
+
+#nav {
+}
+
+#nav ul {
+    margin: 0;
+}
+
+#main
+{
+    position: relative;
+    background: #fff url(images/overlay.png) repeat;
+}
+
+.divider
+{
+    overflow: hidden;
+    border-top: 1px solid #dbdbdb;
+}
+
+p, ul, ol, dl, table
+{
+    margin-bottom: 1em;
+}
+
+.image
+{
+    display: inline-block;
+}
+
+.image img
+{
+    display: block;
+    width: 100%;
+    border-radius: 6px;
+}
+
+.image.featured
+{
+    display: block;
+    width: 100%;
+    margin: 0 0 2em 0;
+}
+
+.image.full
+{
+    display: block;
+    width: 100%;
+    margin: 0 0 2em 0;
+}
+
+.image.left
+{
+    float: left;
+    margin: 0 2em 2em 0;
+}
+
+.image.centered
+{
+    display: block;
+    margin: 0 0 2em 0;
+}
+
+.image.centered img
+{
+    margin: 0 auto;
+    width: auto;
+}
+
+/* Lists */
+
+ul.default
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.default li
+{
+    padding: 0.50em 0em;
+}
+
+ul.style1
+{
+    font-size: 0.90em;
+}
+
+ul.style1 li
+{
+    padding: 0.80em 0em;
+    line-height: 1.8em;
+}
+
+ul.style1 li img
+{
+    float: left;
+    margin-right: 1.50em;
+    border-radius: 6px;
+}
+
+ul.style1 .posted
+{
+    display: block;
+    margin-top: 1em;
+    padding: 0.50em 0em;
+}
+
+#main
+{
+    position: relative;
+    background: #fff url(images/overlay.png) repeat;
+}
+
+.divider
+{
+    overflow: hidden;
+    border-top: 1px solid #dbdbdb;
+}
+
+
+/*
+	Monochromed by TEMPLATED
+    templated.co @templatedco
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+*/
+
+/*********************************************************************************/
+/* Basic                                                                         */
+/*********************************************************************************/
+
+body
+{
+}
+
+body,input,textarea,select
+{
+    font-size: 11pt;
+}
+
+
+header
+{
+    margin-bottom: 2em;
+}
+
+header h2
+{
+    font-size: 3em;
+}
+
+header .byline
+{
+    margin: 0.5em 0 0 0;
+    padding: 0.50em 0 0.5em 0;
+}
+
+/*********************************************************************************/
+/* Header                                                                        */
+/*********************************************************************************/
+
+#header
+{
+    padding: 5em 0em;
+    text-align: center;
+}
+
+.homepage #header
+{
+    padding: 10em 0em;
+}
+
+#header .container
+{
+}
+
+/*********************************************************************************/
+/* Logo                                                                          */
+/*********************************************************************************/
+
+#logo
+{
+    margin-bottom: 3em;
+}
+
+#logo h1 a
+{
+    display: block;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    font-weight: 900;
+    color: #323338;
+}
+
+#logo span
+{
+    display: block;
+    padding-top: 1em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    color: #8e8588;
+}
+
+
+/*********************************************************************************/
+/* Nav                                                                           */
+/*********************************************************************************/
+
+#nav
+{
+}
+
+#nav ul
+{
+    display: inline-block;
+    padding: 0em 3em;
+    border-radius: 40px;
+    background: #131313;
+}
+
+#nav > ul > li
+{
+    display: inline-block;
+}
+
+#nav > ul > li:last-child
+{
+    padding-right: 0;
+}
+
+#nav > ul > li > a,
+#nav > ul > li > span
+{
+    display: block;
+    padding: 1.3em 1.5em;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 200;
+    font-size: 1em;
+    outline: 0;
+    color: #7b7b7b;
+}
+
+
+#nav > ul > li > a:hover
+{
+    color: #FFF;
+}
+
+#nav li.active a
+{
+    color: #FFF;
+}
+
+#nav > ul > li > ul
+{
+    display: none;
+}
+
+/*********************************************************************************/
+/* Main                                                                          */
+/*********************************************************************************/
+
+#main
+{
+    padding: 6em 0em;
+}
+
+.divider
+{
+    margin: 7em 0em 5em 0em;
+}
+
+#content
+{
+}
+
+#content header h2
+{
+    letter-spacing: -1px;
+    font-size: 3em;
+}
+
+#sidebar
+{
+}
+
+#sidebar header h2
+{
+    font-size: 2em;
+}
+
+/* Buttons */
+
+.button
+{
+    position: relative;
+    display: inline-block;
+    margin-top: 2em;
+    padding: 0.8em 1.5em;
+    background: #1d1d1d;
+    border-radius: 6px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1em;
+    color: #FFF;
+    -moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+    -webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+    -o-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+    -ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+    transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+    cursor: pointer;
+}
+
+.button:hover
+{
+    background: #141414;
+    color: #FFF !important;
+}
+
+
+#footer {
+    position: relative;
+    background: #121212;
+    color: #555;
+}
+
+#footer a
+{
+    color: #777777;
+}
+
+
+
+#footer .social {
+    margin: 0px auto 40px auto;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+#footer .social li {
+    margin-left: 0;
+    width: 25%;
+}
+#footer .social a {
+    margin: 50px auto 4px auto;
+    background-color: #fff;
+    border-radius: 50px;
+    padding-top: 15px;
+    font-size: 40px;
+    line-height: 40px;
+    transition: .5s;
+    display: block;
+    height: 70px;
+    color: #fff;
+    width: 70px;
+}
+#footer .social a:hover {
+    transform: rotate(360deg);
+    color: #223741;
+}
+#footer .social .social-facebook { background: #4a6fb5;}
+#footer .social .social-twitter { background: #28a9e0;}
+#footer .social .social-youtube { background: #f86d70;}
+#footer .social .social-instagram { background: #cab9a9;}
+
+
+.shadow-top-down {
+    box-shadow: 0px 8px 8px -4px rgba(0,0,0,0.75);
+    transition: all .5s;
+}
+.shadow-top-down:hover { box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.25);}
