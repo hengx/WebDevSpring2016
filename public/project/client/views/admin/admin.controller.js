@@ -25,46 +25,50 @@
 
         init();
 
-        function remove(user, index) {
-            //console.log("admin controller, remove, print index");
-            //console.log(index);
+
+        function remove(user) {
             UserService
                 .deleteUserById(user._id)
-                .then(function (response) {
-                    $scope.users.splice(index, 1);
-                    //console.log("print after splice");
-                    //console.log($scope.users);
-                }, handleError);
-            //.then(handleSuccess, handleError);
+                .then(handleSuccess, handleError);
         }
+        //function remove(user, index) {
+        //    UserService
+        //        .deleteUserById(user._id)
+        //        .then(function (response) {
+        //            $scope.users.splice(index, 1);
+        //        }, handleError);
+        //}
 
         function update(user) {
-
-            if (user.roles) {
-                user.roles = user.roles.split(',');
-            }
+            //if (user !== undefined) {
+            //    //if (user.roles) {
+            //    //    user.roles = user.roles.split(',');
+            //    //}
+            //}
             UserService
-                .updateUser(user._id, user)
+                .adminUpdateUser(user._id, user)
                 .then(function (response) {
-                    for (var u in $scope.users) {
-                        if ($scope.users[u]._id === user._id) {
-                            user.roles = user.roles.toString();
-                            $scope.users[u] = user;
-                            $scope.selectedUser = null;
-                        }
-                    }
+                    $scope.users = response.data;
+                    $scope.selectedUser = null;
+                    //for (var u in $scope.users) {
+                    //    if ($scope.users[u]._id === user._id) {
+                    //        user.roles = user.roles.toString();
+                    //        $scope.users[u] = user;
+                    //        $scope.selectedUser = null;
+                    //    }
+                    //}
                 }, handleError);
             //.then(handleSuccess, handleError);
 
         }
 
         function add(user) {
-            //console.log("add user");
-            //console.log(user);
-
-            if (user.roles) {
-                user.roles = user.roles.split(',');
+            if (user !== undefined) {
+                if (user.roles) {
+                    user.roles = user.roles.split(',');
+                }
             }
+
             UserService
                 .createUser(user)
                 .then(function (response) {
@@ -77,17 +81,12 @@
         }
 
         function select(user) {
-            //console.log("select user");
-            //console.log(user);
-
             user.roles = user.roles.toString();
-
             $scope.selectedUser = angular.copy(user);
             $scope.selectedUser.password = '';
         }
 
         function handleSuccess(response) {
-            //init();
             console.log(response.data);
             for (var i in response.data) {
                 response.data[i].roles = response.data[i].roles.toString();

@@ -51,7 +51,6 @@ module.exports = function(db, mongoose){
     }
     function createCourse(course){
         var course = new Course({
-            //_id: "ID_" + (new Date()).getTime(),
             courseId: course.courseId,
             name: course.name,
             smallIcon: course.smallIcon,
@@ -79,8 +78,6 @@ module.exports = function(db, mongoose){
 
 
     function setUserLikesCourse(userId, course){
-        console.log("print course, course model server, setUserLikesCourse");
-        console.log(course);
         var deferred = q.defer();
         // find the course by course ID
         Course.findOne({courseId: course.id},

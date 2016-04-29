@@ -10,6 +10,8 @@
          ng-repeat="course in model.favorite.coursesLikedByUser">
 
         <br>
+        {{course}}
+        <br>
         <div class="panel-heading">
             <a href="#/details/{{course.courseId}}">
                 {{course.name}}
@@ -19,6 +21,7 @@
             <a href="#/details/{{course.courseId}}">
                 <img ng-src="{{course.smallIcon}}" width="200px"/>
             </a>
+            <p>{{course.shortDescription}}</p>
         </div>
     </div>
 

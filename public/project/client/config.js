@@ -21,7 +21,7 @@
                 controller: "RegisterController",
                 controllerAs: "model"
             })
-            .when("/profile/", {
+            .when("/profile", {
                 templateUrl: "views/profile/profile.view.html",
                 controller: "ProfileController",
                 controllerAs: "model",
@@ -29,7 +29,7 @@
                     checkLoggedIn: checkLoggedIn
                 }
             })
-            .when("/favorite/:username?", {
+            .when("/favorite/:userId", {
                 templateUrl: "views/favorite/favorite.view.html",
                 controller: "FavoriteController",
                 controllerAs: "model",

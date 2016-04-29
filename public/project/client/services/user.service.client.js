@@ -50,7 +50,8 @@
         }
 
         function getFavorite() {
-            //console.log($rootScope.currentUser._id);
+            console.log("print current user in user service client");
+            console.log($rootScope.currentUser);
             return $http.get("/api/project/favorite/" + $rootScope.currentUser._id);
         }
 
@@ -63,8 +64,8 @@
         }
 
         function deleteUserById(userId) {
-            console.log("user service client, delete");
-            console.log(userId);
+            //console.log("user service client, delete");
+            //console.log(userId);
             return $http.delete("/api/project/admin/user/" + userId);
         }
 

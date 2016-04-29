@@ -1,4 +1,4 @@
-<h2>Details</h2>
+<h2 class="page-header">Details</h2>
 
 <h3>{{model.data.elements[0].name}}</h3>
 
@@ -11,8 +11,8 @@
 
 <button class="btn btn-primary"
         ng-click="model.favorite(model.data.elements[0])">
-    <span ng-show = "model.course.coursesIdLiked.indexOf(currentUser._id) > -1" class="glyphicon glyphicon-star"></span>
-    <span ng-show = "!model.course || !model.course.coursesIdLiked || model.course.coursesIdLiked.indexOf(currentUser._id) == -1"
+    <span ng-show = "model.course.userIdsLikedCourse.indexOf(currentUser._id) > -1" class="glyphicon glyphicon-star"></span>
+    <span ng-show = "!model.course || !model.course.userIdsLikedCourse || model.course.userIdsLikedCourse.indexOf(currentUser._id) == -1"
           class = "glyphicon glyphicon-star-empty"></span>
 </button>
 
@@ -20,18 +20,15 @@
 
 <p>{{model.data.elements[0].shortDescription}}</p>
 
-{{model.userListsLikedCourse}}
+{{model.course.userListsLikedCourse}}
 
 <div ng-if="model.course.userListsLikedCourse">
     <h4>Other Users that Like This Course</h4>
     <ul>
         <li ng-repeat="user in model.course.userListsLikedCourse">
-            <a href="#/profile/{{user.username}}">
+            <a href="#/favorite/{{user._id}}">
             {{user.username}}
             </a>
         </li>
     </ul>
 </div>
-
-<br>
-<br>

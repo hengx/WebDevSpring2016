@@ -3,6 +3,7 @@ module.exports = function (app, courseModel, userModel) {
     app.post("/api/project/user/:userId/course/:courseId", setUserLikesCourse);
     app.get("/api/project/course/:courseId/user", findUserLikes);
 
+    //return the course and set the users who liked the course in course
     function findUserLikes(req, res) {
         var courseId = req.params.courseId;
         var course = null;
@@ -35,8 +36,7 @@ module.exports = function (app, courseModel, userModel) {
     }
 
 
-
-        function setUserLikesCourse(req, res) {
+    function setUserLikesCourse(req, res) {
         var courseMooc = req.body;
         var userId = req.params.userId;
         var courseId = req.params.courseId;
@@ -44,70 +44,26 @@ module.exports = function (app, courseModel, userModel) {
 
         courseModel
             .setUserLikesCourse(userId, courseMooc)
-        //add user to course coursesIdLiked
+            //add user to course coursesIdLiked
             .then(
-                function(course){
+                function (course) {
                     return userModel.userLikesCourse(userId, course);
                 },
-                function (err){
+                function (err) {
                     res.status(400).send(err);
                 }
             )
             //add course to user courseIdsLikedByUser
             .then(
-                function(user){
+                function (user) {
                     res.json(user);
                 },
-                function(err){
+                function (err) {
                     res.status(400).send(err);
                 }
             );
-        //if (!course) {
-        //    //course = courseModel.createCourse(courseMooc);
-        //    courseModel.createCourse(courseMooc)
-        //        .then(
-        //            function (course) {
-        //                if (!course.coursesIdLiked) {
-        //                    course.coursesIdLiked = [];
-        //                }
-        //                course.coursesIdLiked.push(userId);
-        //
-        //                var user = userModel.findUserById(userId);
-        //                if (!user.coursesIdLiked) {
-        //                    user.coursesIdLiked = [];
-        //                }
-        //                user.coursesIdLiked.push(courseId);
-        //                console.log(user);
-        //                console.log(course);
-        //                res.send(200);
-        //
-        //            },
-        //            function (err) {
-        //                res.status(400).send(err);
-        //            }
-        //        );
-        //}
-        //res.send(200);
     }
 
 
-
-
-
-        //var course = courseModel.findCourseByCourseId(courseId);
-        //if (course) {
-        //    var userListsLikedCourse = course.coursesIdLiked;
-        //    console.log(userListsLikedCourse);
-        //    var users = userModel.findUsersByIds(userListsLikedCourse);
-        //    course.userListsLikedCourse = users;
-        //}
-        //
-        //
-        ////res.send(users);
-        ////console.log(id);
-        ////res.send(200);
-        //
-        //
-        //res.json(course);
 
 };

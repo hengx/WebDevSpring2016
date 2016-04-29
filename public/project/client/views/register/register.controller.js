@@ -16,8 +16,8 @@
         init();
 
         function register(user) {
-            console.log("register controller");
-            console.log(user);
+            //console.log("register controller");
+            //console.log(user);
             if (user == null || user.username == null || user.password == null || user.password2 == null) {
                 vm.message = "Please provide a valid username or password";
             }
@@ -34,12 +34,12 @@
 
             function success(response) {
                 if (response.data) {
-                    console.log("register controller 1 is");
-                    console.log(response.data);
+                    //console.log("register controller 1 is");
+                    //console.log(response.data);
                         UserService.setCurrentUser(response.data);
-                    console.log("after set current user");
+                    //console.log("after set current user");
                         $location.url("/profile");
-                    console.log("after register");
+                    //console.log("after register");
                 }
 
 

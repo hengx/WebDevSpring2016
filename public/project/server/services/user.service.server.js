@@ -30,17 +30,11 @@ module.exports = function (app, courseModel, userModel) {
 
     function login(req, res) {
         var credentials = req.body;
-        //console.log("login service server, credentials");
-        //console.log(credentials);
-        //var user = userModel.login(credentials);
-        //req.session.currentUser = user;
-        //res.json(user);
         userModel.findUserByCredentials(credentials)
             .then(
                 function (doc) {
                     req.session.currentUser = doc;
-                    //console.log("session currentUser");
-                    //console.log(req.session.currentUser);
+
                     res.json(doc);
                 },
                 // send error if promise rejected
@@ -51,8 +45,6 @@ module.exports = function (app, courseModel, userModel) {
     }
 
     function loggedin(req, res) {
-        //console.log("loggedin, server");
-        //console.log(req.session.currentUser);
         res.json(req.isAuthenticated() ? req.session.currentUser : '0');
     }
 
@@ -63,32 +55,19 @@ module.exports = function (app, courseModel, userModel) {
     }
 
     function register(req, res) {
-
-        //console.log("server side register req");
-        //console.log(req);
-
         var newUser = req.body;
-        //console.log("server side register");
-        //console.log(newUser);
         newUser.password = bcrypt.hashSync(newUser.password);
 
         userModel
             .findUserByUsername(newUser.username)
             .then(
                 function (user) {
-                    //console.log("server side, service, find user by username");
-                    //console.log(user);
                     if (user) {
                         res.json(null);
                     } else {
-                        //console.log("server side register create user");
-                        //console.log(user);
-                        //return userModel.createUser(newUser);
                         return userModel.createUser(newUser)
                             .then(function (doc) {
                                 req.session.currentUser = doc;
-                                //console.log("++ server side, user model create user in service")
-                                //console.log(doc);
                                 return doc;
                             }, function (err) {
                                 res.status(400).send(err);
@@ -101,13 +80,10 @@ module.exports = function (app, courseModel, userModel) {
             )
             .then(
                 function (user) {
-                    //console.log("reached before req login?");
-                    //console.log(user);
+
                     if (user) {
-                        //console.log("reached before req login 2222?");
                         req.login(user, function (err) {
-                            //console.log("user service server, login");
-                            //console.log(user);
+
                             if (err) {
                                 res.status(400).send(err);
                             } else {
@@ -121,16 +97,15 @@ module.exports = function (app, courseModel, userModel) {
                 }
             );
 
-        //user = userModel.register(user);
-        //req.session.currentUser = user;
-        //res.json(user);
     }
 
-    function profile(req, res){
+    function profile(req, res) {
         var userId = req.params.userId;
         userModel.findUserById(userId)
-            .then(function(user){
+            .then(function (user) {
                 res.json(user);
+            }, function (err){
+                res.status(400).send(err);
             });
 
     }
@@ -170,9 +145,6 @@ module.exports = function (app, courseModel, userModel) {
     function updateUser(req, res) {
         var userId = req.params.userId;
         var updatedUser = req.body;
-        //console.log("user server service");
-        //console.log(userId);
-        //console.log(updatedUser);
 
         if (updatedUser.password && updatedUser.password !== '') {
             updatedUser.password = bcrypt.hashSync(updatedUser.password);
@@ -192,14 +164,10 @@ module.exports = function (app, courseModel, userModel) {
 
 
     function localStrategy(username, password, done) {
-        //console.log("password");
-        //console.log(password);
         userModel
             .findUserByCredentials({username: username, password: password})
             .then(
                 function (user) {
-                    //console.log("1");
-                    //console.log(user);
                     if (!user) {
                         return done(null, false);
                     }
@@ -251,8 +219,6 @@ module.exports = function (app, courseModel, userModel) {
 
     function adminCreateNewUser(req, res) {
         var user = req.body;
-        console.log('add new user');
-        console.log(user);
         user.password = bcrypt.hashSync(user.password);
         userModel
             .createUser(user)
@@ -266,16 +232,13 @@ module.exports = function (app, courseModel, userModel) {
 
 
     function adminGetUsers(req, res) {
-        console.log('get users');
-        var user = req.body;
 
-        if (user.username && user.password) {
+        if (req.query.username && req.query.password) {
             findUserByCredentials(req, res);
-        } else if (user.username) {
+        } else if (req.query.username) {
             findUserByUsername(req, res);
         }
         else {
-            console.log('get All users');
             userModel
                 .findAllUsers()
                 .then(function (users) {
@@ -289,8 +252,8 @@ module.exports = function (app, courseModel, userModel) {
 
     function findUserByCredentials(req, res) {
 
-        var username = req.body.username;
-        var password = req.body.password;
+        var username = req.query.username;
+        var password = req.query.password;
 
         if (username != null && password != null) {
             var credentials = {
@@ -309,7 +272,7 @@ module.exports = function (app, courseModel, userModel) {
     }
 
     function findUserByUsername(req, res) {
-        var username = req.body.username;
+        var username = req.query.username;
         userModel
             .findUserByUsername(username)
             .then(function (user) {
@@ -331,13 +294,39 @@ module.exports = function (app, courseModel, userModel) {
 
 
     function adminUpdateUser(req, res) {
+        //    var userId = req.params.id;
+        //    var updatedUser = req.body;
+        //
+        //    if (updatedUser.password && updatedUser.password !== ''){
+        //        updatedUser.password = bcrypt.hashSync(updatedUser.password);
+        //    } else {
+        //        delete updatedUser.password;
+        //    }
+        //
+        //    userModel
+        //        .updateUser(userId, updatedUser)
+        //        .then(function (user) {
+        //            user['_id'] = userId;
+        //            res.json(user);
+        //        }, function (err) {
+        //            res.status(400).send(err);
+        //        });
+        //}
+        var userId = req.params.userId;
         var newUser = req.body;
+
+        if (newUser.password && newUser.password !== '') {
+            newUser.password = bcrypt.hashSync(newUser.password);
+        } else {
+            delete newUser.password;
+        }
         if (typeof newUser.roles == "string") {
             newUser.roles = newUser.roles.split(",");
         }
         userModel
-            .updateUser(req.params.userId, newUser)
+            .updateUser(userId, newUser)
             .then(function (user) {
+                    user['_id'] = userId;
                     return userModel.findAllUsers();
                 },
                 function (err) {
@@ -359,7 +348,15 @@ module.exports = function (app, courseModel, userModel) {
         userModel
             .deleteUser(userId)
             .then(function (users) {
+                    return userModel.findAllUsers();
+                }, function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(function (users) {
                 res.json(users);
+            }, function (err) {
+                res.status(400).send(err);
             });
 
     }

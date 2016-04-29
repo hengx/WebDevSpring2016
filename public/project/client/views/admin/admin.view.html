@@ -76,9 +76,9 @@
                 <td></td>
                 <td>{{user.firstName}}</td>
                 <td>{{user.lastName}}</td>
-                <td>{{user.roles}}</td>
+                <td>{{user.roles.toString()}}</td>
                 <td>
-                    <span ng-click="remove(user, $index)" class="glyphicon glyphicon-remove btn btn-danger btn-sm" aria-hidden="true"></span>
+                    <span ng-click="remove(user)" class="glyphicon glyphicon-remove btn btn-danger btn-sm" aria-hidden="true"></span>
                     <span ng-click="select(user)" class="glyphicon glyphicon-cog btn btn-warning btn-sm" aria-hidden="true"></span>
                 </td>
             </tr>

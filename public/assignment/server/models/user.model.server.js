@@ -116,8 +116,8 @@ module.exports = function (db, mongoose) {
 
 
     function findUserByUsername(username) {
-        console.log("find user by user name, server model");
-        console.log(username);
+        //console.log("find user by user name, server model");
+        //console.log(username);
         var deferred = q.defer();
         userModel
             .findOne({username: username},
@@ -125,8 +125,8 @@ module.exports = function (db, mongoose) {
                     if (err){
                         deferred.reject(err);
                     }else {
-                        console.log("find one, server model");
-                        console.log(user);
+                        //console.log("find one, server model");
+                        //console.log(user);
                         deferred.resolve(user);
                     }
                 });

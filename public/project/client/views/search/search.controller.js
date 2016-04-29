@@ -15,8 +15,8 @@
         init();
 
         function search(course){
-            console.log("course name");
-            console.log(course);
+            //console.log("course name");
+            //console.log(course);
 
             MoocService
                 .searchCourseByName(course.name)
@@ -25,14 +25,14 @@
             function success(response){
                 if (response.data){
                     vm.data = response.data;
-                    console.log("search result");
-                    console.log(response.data);
+                    //console.log("search result");
+                    //console.log(response.data);
                 }
 
             }
             function failure(response){
-                vm.message = "Found No Matching";
-                console.log("Search Failed");
+                vm.message = "No matching records found, please try again";
+                //console.log("Search Failed");
             }
 
 
